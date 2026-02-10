@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥢 今日食运 - 中午吃什么</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景星星动画 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 主容器 */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                        0 0 100px rgba(255, 183, 77, 0.2);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* 标题区域 */
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(254, 202, 87, 0.5)); }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* 抽签按钮 */
+        .fortune-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(238, 90, 36, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .fortune-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(238, 90, 36, 0.5);
+        }
+
+        .fortune-button:active {
+            transform: translateY(0);
+        }
+
+        .fortune-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .fortune-button:hover::before {
+            left: 100%;
+        }
+
+        .fortune-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 结果区域 */
+        .result {
+            margin-top: 40px;
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        /* 食运签筒 */
+        .fortune-card {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border: 3px solid #feca57;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(254, 202, 87, 0.3);
+        }
+
+        .fortune-card::before {
+            content: '🥢';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 时令标签 */
+        .season-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 食品名称 */
+        .food-name {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-emoji {
+            font-size: 4rem;
+            display: block;
+            margin: 20px 0;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 食运签名 */
+        .fortune-signature {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            border: 2px dashed #e17055;
+        }
+
+        .fortune-signature::before {
+            content: '✨';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 1.5rem;
+        }
+
+        .fortune-signature-label {
+            font-size: 0.9rem;
+            color: #d35400;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .fortune-signature-text {
+            font-size: 1.1rem;
+            color: #2d3436;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* 推荐理由 */
+        .recommendation {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .recommendation-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .recommendation-text {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* 多个食品展示 */
+        .food-items {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .food-item {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: none;
+            margin: 30px 0;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading-emoji {
+            font-size: 3rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 烟花效果 */
+        .firework {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: firework 1s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .food-name {
+                font-size: 1.5rem;
+            }
+
+            .fortune-button {
+                padding: 15px 40px;
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 25px;
+            }
+        }
+
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .decoration-1 { top: 20px; left: 20px; animation-delay: 0s; }
+        .decoration-2 { top: 20px; right: 20px; animation-delay: 0.5s; }
+        .decoration-3 { bottom: 20px; left: 20px; animation-delay: 1s; }
+        .decoration-4 { bottom: 20px; right: 20px; animation-delay: 1.5s; }
+    </style>
+</head>
+<body>
+    <!-- 背景星星 -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 装饰元素 -->
+        <div class="decoration decoration-1">🌸</div>
+        <div class="decoration decoration-2">🎋</div>
+        <div class="decoration decoration-3">🍜</div>
+        <div class="decoration decoration-4">🥟</div>
+
+        <!-- 标题 -->
+        <h1 class="title">🥢 今日食运</h1>
+        <p class="subtitle">揭开属于你的午餐缘分</p>
+
+        <!-- 抽签按钮 -->
+        <button class="fortune-button" id="fortuneButton" onclick="drawFortune()">
+            🎲 抽取食运签
+        </button>
+
+        <!-- 加载动画 -->
+        <div class="loading" id="loading">
+            <div class="loading-emoji">🥢</div>
+            <p>正在探寻你的食运...</p>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="result" id="result">
+            <div class="fortune-card">
+                <span class="season-tag" id="seasonTag"></span>
+
+                <div class="food-items" id="foodItems"></div>
+
+                <div class="fortune-signature">
+                    <div class="fortune-signature-label">📜 食运签文</div>
+                    <div class="fortune-signature-text" id="fortuneSignature"></div>
+                </div>
+
+                <div class="recommendation">
+                    <div class="recommendation-label">💡 推荐理由</div>
+                    <div class="recommendation-text" id="recommendation"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 创建背景星星
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // 音效生成（使用Web Audio API）
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'click') {
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } else if (type === 'reveal') {
+                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } else if (type === 'success') {
+                // 成功音效 - 三连音
+                const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+                notes.forEach((freq, index) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.setValueAtTime(freq, audioContext.currentTime + index * 0.15);
+                    gain.gain.setValueAtTime(0.2, audioContext.currentTime + index * 0.15);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.15 + 0.2);
+                    osc.start(audioContext.currentTime + index * 0.15);
+                    osc.stop(audioContext.currentTime + index * 0.15 + 0.2);
+                });
+            }
+        }
+
+        // 创建烟花效果
+        function createFirework() {
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(firework);
+                    setTimeout(() => firework.remove(), 1000);
+                }, i * 50);
+            }
+        }
+
+        // 获取当前时令
+        function getCurrentSeason() {
+            const month = new Date().getMonth() + 1;
+            const day = new Date().getDate();
+
+            // 二十四节气判断（简化版）
+            if ((month === 3 && day >= 20) || (month === 4 && day <= 4)) return { name: '春分', emoji: '🌸' };
+            if ((month === 4 && day >= 5) || (month === 4 && day <= 19)) return { name: '清明', emoji: '🌿' };
+            if ((month === 4 && day >= 20) || (month === 5 && day <= 5)) return { name: '谷雨', emoji: '🌾' };
+            if ((month === 5 && day >= 6) || (month === 5 && day <= 20)) return { name: '立夏', emoji: '🍃' };
+            if ((month === 5 && day >= 21) || (month === 6 && day <= 5)) return { name: '小满', emoji: '🌾' };
+            if ((month === 6 && day >= 6) || (month === 6 && day <= 20)) return { name: '芒种', emoji: '🌾' };
+            if ((month === 6 && day >= 21) || (month === 7 && day <= 6)) return { name: '夏至', emoji: '☀️' };
+            if ((month === 7 && day >= 7) || (month === 7 && day <= 22)) return { name: '小暑', emoji: '🌻' };
+            if ((month === 7 && day >= 23) || (month === 8 && day <= 6)) return { name: '大暑', emoji: '🔥' };
+            if ((month === 8 && day >= 7) || (month === 8 && day <= 22)) return { name: '立秋', emoji: '🍂' };
+            if ((month === 8 && day >= 23) || (month === 9 && day <= 7)) return { name: '处暑', emoji: '🍁' };
+            if ((month === 9 && day >= 8) || (month === 9 && day <= 22)) return { name: '白露', emoji: '🌙' };
+            if ((month === 9 && day >= 23) || (month === 10 && day <= 7)) return { name: '秋分', emoji: '🌕' };
+            if ((month === 10 && day >= 8) || (month === 10 && day <= 22)) return { name: '寒露', emoji: '🍂' };
+            if ((month === 10 && day >= 23) || (month === 11 && day <= 6)) return { name: '霜降', emoji: '❄️' };
+            if ((month === 11 && day >= 7) || (month === 11 && day <= 21)) return { name: '立冬', emoji: '🧣' };
+            if ((month === 11 && day >= 22) || (month === 12 && day <= 6)) return { name: '小雪', emoji: '⛄' };
+            if ((month === 12 && day >= 7) || (month === 12 && day <= 20)) return { name: '大雪', emoji: '❄️' };
+            if ((month === 12 && day >= 21) || (month === 1 && day <= 4)) return { name: '冬至', emoji: '🎄' };
+            if ((month === 1 && day >= 5) || (month === 1 && day <= 19)) return { name: '小寒', emoji: '🥶' };
+            if ((month === 1 && day >= 20) || (month === 2 && day <= 3)) return { name: '大寒', emoji: '🧊' };
+            if ((month === 2 && day >= 4) || (month === 2 && day <= 18)) return { name: '立春', emoji: '🌱' };
+            if ((month === 2 && day >= 19) || (month === 3 && day <= 5)) return { name: '雨水', emoji: '🌧️' };
+            if ((month === 3 && day >= 6) || (month === 3 && day <= 19)) return { name: '惊蛰', emoji: '🐛' };
+
+            // 默认季节
+            if (month >= 3 && month <= 5) return { name: '春日', emoji: '🌸' };
+            if (month >= 6 && month <= 8) return { name: '夏日', emoji: '☀️' };
+            if (month >= 9 && month <= 11) return { name: '秋日', emoji: '🍂' };
+            return { name: '冬日', emoji: '❄️' };
+        }
+
+        // 美食数据库
+        const foodDatabase = [
+            // 主食类
+            {
+                name: '牛肉面',
+                emoji: '🍜',
+                category: '主食',
+                region: '兰州',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒', '惊蛰', '春分'],
+                signatures: [
+                    '牛气冲天，事业如面条般顺遂向上',
+                    '人生如面，需经得起摔打方能入味',
+                    '牛劲十足，今日所向披靡'
+                ],
+                recommendations: [
+                    '兰州牛肉面讲究"一清二白三红四绿"，汤清萝卜白辣椒红香菜绿，寓意生活清白红火，营养丰富',
+                    '面条长长，象征长寿和长久的好运；牛肉鲜美，代表生活富足有滋味'
+                ]
+            },
+            {
+                name: '火锅',
+                emoji: '🍲',
+                category: '主食',
+                region: '重庆',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒', '立春', '雨水', '惊蛰'],
+                signatures: [
+                    '红红火火，热情似火锅沸腾',
+                    '人生如火锅，酸甜苦辣皆是滋味',
+                    '团团圆圆，友情如火锅般温暖'
+                ],
+                recommendations: [
+                    '火锅沸腾象征事业生活红红火火，众人围坐寓意和谐团圆',
+                    '各色食材在锅中翻滚，象征包容万象的胸怀，适合社交拓展'
+                ]
+            },
+            {
+                name: '水饺',
+                emoji: '🥟',
+                category: '主食',
+                region: '北方',
+                seasons: ['冬至', '小寒', '大寒', '立春', '春节', '元宵', '立秋'],
+                signatures: [
+                    '元宝在手，财源滚滚来',
+                    '更岁交子，时来运转',
+                    '形似元宝，招财进宝'
+                ],
+                recommendations: [
+                    '水饺形似元宝，寓意招财进宝；交子谐音，象征时来运转',
+                    '团圆美食，代表团圆美满，适合与同事分享增进感情'
+                ]
+            },
+            {
+                name: '盖浇饭',
+                emoji: '🍛',
+                category: '主食',
+                region: '全国',
+                seasons: ['春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分'],
+                signatures: [
+                    '饭菜交融，事业生活双丰收',
+                    '浇灌希望，收获满满',
+                    '踏实稳重，步步为营'
+                ],
+                recommendations: [
+                    '菜浇饭上寓意"锦上添花"，营养搭配均衡适合忙碌的工作日',
+                    '简单实在的一餐，提醒脚踏实地方能成就大事'
+                ]
+            },
+            {
+                name: '小笼包',
+                emoji: '🥟',
+                category: '主食',
+                region: '上海',
+                seasons: ['春分', '清明', '谷雨', '立夏', '小满', '白露', '秋分'],
+                signatures: [
+                    '小巧玲珑，内有乾坤',
+                    '蒸蒸日上，步步高升',
+                    '皮薄馅大，真诚待人'
+                ],
+                recommendations: [
+                    '蒸制的烹饪方式象征"蒸蒸日上"，寓意事业步步高升',
+                    '小笼包精致可口，提醒注重细节才能成就完美'
+                ]
+            },
+            {
+                name: '炸酱面',
+                emoji: '🍜',
+                category: '主食',
+                region: '北京',
+                seasons: ['立春', '雨水', '惊蛰', '春分', '立秋', '处暑'],
+                signatures: [
+                    '酱香浓郁，生活有滋有味',
+                    '劲道十足，韧性不拔',
+                    '朴实无华，回味无穷'
+                ],
+                recommendations: [
+                    '炸酱浓郁醇厚寓意生活丰富多彩，面条劲道象征韧性十足',
+                    '老北京经典美食，传承历史文化，品味京城韵味'
+                ]
+            },
+            {
+                name: '拉面',
+                emoji: '🍜',
+                category: '主食',
+                region: '西北',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒', '惊蛰', '春分'],
+                signatures: [
+                    '千锤百炼，方成大器',
+                    '柔韧有余，能屈能伸',
+                    '一拉成顺，事事顺心'
+                ],
+                recommendations: [
+                    '拉面经过反复拉制才成，寓意千锤百炼方能成就大器',
+                    '面条柔韧可伸，象征能屈能伸的处世智慧'
+                ]
+            },
+            {
+                name: '炒饭',
+                emoji: '🍚',
+                category: '主食',
+                region: '全国',
+                seasons: ['春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑'],
+                signatures: [
+                    '粒粒分明，思路清晰',
+                    '翻炒起伏，人生精彩',
+                    '金黄灿烂，前程似锦'
+                ],
+                recommendations: [
+                    '炒饭粒粒分明寓意思路清晰，适合需要决策的工作日',
+                    '翻炒过程象征不断努力奋斗，最终成就金黄灿烂的未来'
+                ]
+            },
+            {
+                name: '春卷',
+                emoji: '🥢',
+                category: '主食',
+                region: '江南',
+                seasons: ['立春', '雨水', '惊蛰', '春分'],
+                signatures: [
+                    '春卷金黄，财运亨通',
+                    '迎春纳福，万象更新',
+                    '卷起好运，展开前程'
+                ],
+                recommendations: [
+                    '春卷是立春传统美食，咬春习俗寓意迎春纳福、万象更新',
+                    '金黄酥脆象征财富，适合立春时节祈求一年好运'
+                ]
+            },
+            // 菜品类
+            {
+                name: '宫保鸡丁',
+                emoji: '🥗',
+                category: '菜品',
+                region: '四川',
+                seasons: ['立春', '雨水', '惊蛰', '春分', '立秋', '处暑'],
+                signatures: [
+                    '酸甜辣香，人生百味皆尝',
+                    '花生落地，硕果累累',
+                    '红绿相间，生活多彩'
+                ],
+                recommendations: [
+                    '宫保鸡丁酸甜辣香俱全，象征能品味人生各种滋味',
+                    '花生寓意落地生根、硕果累累，适合创业者或项目启动期'
+                ]
+            },
+            {
+                name: '麻婆豆腐',
+                emoji: '🌶️',
+                category: '菜品',
+                region: '四川',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒'],
+                signatures: [
+                    '麻辣鲜香，热情似火',
+                    '白玉无瑕，品格高洁',
+                    '豆腐清白，做事明理'
+                ],
+                recommendations: [
+                    '麻辣刺激提神醒脑，适合需要激情和创意的工作日',
+                    '豆腐象征清白做人，提醒保持初心和品格'
+                ]
+            },
+            {
+                name: '红烧肉',
+                emoji: '🍖',
+                category: '菜品',
+                region: '江南',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒', '立春'],
+                signatures: [
+                    '红红火火，鸿运当头',
+                    '肥而不腻，恰到好处',
+                    '慢炖入味，久久为功'
+                ],
+                recommendations: [
+                    '红烧肉色泽红亮象征鸿运当头，适合重要会议或洽谈日',
+                    '慢炖的过程提醒成功需要耐心和时间的沉淀'
+                ]
+            },
+            {
+                name: '糖醋排骨',
+                emoji: '🍖',
+                category: '菜品',
+                region: '江浙',
+                seasons: ['春分', '清明', '谷雨', '立夏', '立秋', '处暑'],
+                signatures: [
+                    '酸甜适度，刚柔并济',
+                    '骨气十足，韧性不拔',
+                    '甜蜜收尾，圆满美好'
+                ],
+                recommendations: [
+                    '糖醋口味象征刚柔并济的处世智慧，适合谈判或协商日',
+                    '排骨寓意"骨气"，提醒坚持原则但方法灵活'
+                ]
+            },
+            {
+                name: '鱼香肉丝',
+                emoji: '🐟',
+                category: '菜品',
+                region: '四川',
+                seasons: ['春分', '清明', '谷雨', '立夏', '白露', '秋分'],
+                signatures: [
+                    '鱼香无鱼，虚实相生',
+                    '余香绕梁，影响深远',
+                    '酸甜微辣，恰到好处'
+                ],
+                recommendations: [
+                    '鱼香肉丝无鱼却有鱼香，寓意创新思维和意想不到的收获',
+                    '适合需要创意突破或寻找新角度的工作任务'
+                ]
+            },
+            {
+                name: '口水鸡',
+                emoji: '🐔',
+                category: '菜品',
+                region: '四川',
+                seasons: ['立夏', '小满', '芒种', '夏至', '小暑', '大暑'],
+                signatures: [
+                    '鸡祥如意，大吉大利',
+                    '麻辣鲜香，活力四射',
+                    '口水直流，魅力十足'
+                ],
+                recommendations: [
+                    '"鸡"谐音"吉"，寓意大吉大利，适合开始新项目',
+                    '麻辣刺激激发活力，适合需要激情和动力的工作日'
+                ]
+            },
+            {
+                name: '清蒸鱼',
+                emoji: '🐟',
+                category: '菜品',
+                region: '粤菜',
+                seasons: ['清明', '谷雨', '立夏', '小满', '白露', '秋分', '寒露'],
+                signatures: [
+                    '年年有余，富足安康',
+                    '清蒸为上，保持本真',
+                    '游刃有余，从容不迫'
+                ],
+                recommendations: [
+                    '"鱼"谐音"余"，寓意年年有余，象征财富积累',
+                    '清蒸保持食材本味，提醒保持本真和初心'
+                ]
+            },
+            {
+                name: '回锅肉',
+                emoji: '🥓',
+                category: '菜品',
+                region: '四川',
+                seasons: ['立春', '雨水', '惊蛰', '春分', '立秋', '处暑'],
+                signatures: [
+                    '回锅更香，经验宝贵',
+                    '二次创作，柳暗花明',
+                    '肥而不腻，恰到好处'
+                ],
+                recommendations: [
+                    '回锅肉经过二次烹饪更香，寓意经验积累带来更好结果',
+                    '适合复盘总结、改进优化的工作日'
+                ]
+            },
+            {
+                name: '东坡肉',
+                emoji: '🍖',
+                category: '菜品',
+                region: '杭州',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒'],
+                signatures: [
+                    '文火慢炖，大器晚成',
+                    '苏子遗风，文人雅致',
+                    '方正有度，规矩方圆'
+                ],
+                recommendations: [
+                    '东坡肉需文火慢炖数小时，寓意大器晚成、功到自然成',
+                    '苏东坡的文化气息适合文艺工作者或需要创意的工作日'
+                ]
+            },
+            {
+                name: '黄焖鸡',
+                emoji: '🍗',
+                category: '菜品',
+                region: '山东',
+                seasons: ['立春', '雨水', '春分', '立秋', '处暑'],
+                signatures: [
+                    '黄袍加身，贵气十足',
+                    '焖煮入味，内功深厚',
+                    '大吉大利，鸡不可失'
+                ],
+                recommendations: [
+                    '"鸡"谐音"吉"，寓意大吉大利；黄焖入味象征内功深厚',
+                    '黄焖鸡是国民快餐，提醒接地气才能获得广泛支持'
+                ]
+            },
+            {
+                name: '梅菜扣肉',
+                emoji: '🥩',
+                category: '菜品',
+                region: '客家',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '大寒', '立春'],
+                signatures: [
+                    '梅开二度，好运重来',
+                    '扣得住味，留得住人',
+                    '肥而不腻，恰到好处'
+                ],
+                recommendations: [
+                    '梅菜寓意"梅开二度"，象征好运再来或东山再起',
+                    '适合低谷期或需要重新出发的工作日'
+                ]
+            },
+            {
+                name: '西湖醋鱼',
+                emoji: '🐟',
+                category: '菜品',
+                region: '杭州',
+                seasons: ['春分', '清明', '谷雨', '立夏'],
+                signatures: [
+                    '西湖美景，诗情画意',
+                    '醋意绵绵，情深义重',
+                    '年年有余，福气满满'
+                ],
+                recommendations: [
+                    '西湖醋鱼源于杭州，寓意诗情画意和浪漫情怀',
+                    '适合需要创意灵感或艺术审美的工作日'
+                ]
+            },
+            {
+                name: '烤鸭',
+                emoji: '🦆',
+                category: '菜品',
+                region: '北京',
+                seasons: ['立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪'],
+                signatures: [
+                    '前程似锦，展翅高飞',
+                    '北京韵味，大开眼界',
+                    '皮脆肉嫩，刚柔并济'
+                ],
+                recommendations: [
+                    '鸭子寓意"前程似锦、展翅高飞"，适合有晋升或发展计划的工作日',
+                    '北京烤鸭是国宴级美食，象征品味和格局提升'
+                ]
+            },
+            {
+                name: '蒜蓉粉丝蒸扇贝',
+                emoji: '🦪',
+                category: '菜品',
+                region: '粤菜',
+                seasons: ['立夏', '小满', '芒种', '夏至', '小暑', '大暑'],
+                signatures: [
+                    '扇贝如珠，财源广进',
+                    '粉丝连连，人脉广阔',
+                    '蒜香四溢，声名远播'
+                ],
+                recommendations: [
+                    '扇贝寓意"贝多才多财"，象征财源广进和才华横溢',
+                    '粉丝象征人脉连连，适合商务拓展或社交日'
+                ]
+            },
+            {
+                name: '酸菜鱼',
+                emoji: '🐟',
+                category: '菜品',
+                region: '四川',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒', '立春'],
+                signatures: [
+                    '酸爽开胃，活力满满',
+                    '年年有余，生活富足',
+                    '酸中带辣，苦尽甘来'
+                ],
+                recommendations: [
+                    '酸爽口味开胃提神，适合精神不振或需要激发活力的工作日',
+                    '酸中带辣象征苦尽甘来，鼓励坚持终见光明'
+                ]
+            },
+            {
+                name: '青团',
+                emoji: '🟢',
+                category: '菜品',
+                region: '江南',
+                seasons: ['清明'],
+                signatures: [
+                    '青团翠绿，生机勃勃',
+                    '清明时节，思念故人',
+                    '团团圆圆，家和万事兴'
+                ],
+                recommendations: [
+                    '青团是清明传统美食，用艾草制作寓意辟邪纳福、健康平安',
+                    '青团的绿色象征春天生机，团团圆圆的形状寓意家庭和睦'
+                ]
+            },
+            {
+                name: '粽子',
+                emoji: '🎋',
+                category: '主食',
+                region: '全国',
+                seasons: ['芒种', '夏至', '端午'],
+                signatures: [
+                    '粽香飘远，福泽绵长',
+                    '包裹福气，粽享好运',
+                    '层层叠叠，步步高升'
+                ],
+                recommendations: [
+                    '端午节传统美食，粽叶飘香寓意福泽绵长、驱邪避疫',
+                    '粽子层层包裹象征福气聚集，适合祈求平安健康'
+                ]
+            },
+            {
+                name: '月饼',
+                emoji: '🥮',
+                category: '点心',
+                region: '全国',
+                seasons: ['白露', '秋分', '中秋'],
+                signatures: [
+                    '月圆人团圆，美满幸福',
+                    '花好月圆，前程似锦',
+                    '甜甜蜜蜜，生活美满'
+                ],
+                recommendations: [
+                    '中秋节必备美食，象征团圆美满，月圆人团圆',
+                    '月饼甜美的馅料寓意生活甜蜜，适合与家人朋友分享'
+                ]
+            },
+            {
+                name: '腊八粥',
+                emoji: '🍲',
+                category: '主食',
+                region: '全国',
+                seasons: ['大寒'],
+                signatures: [
+                    '腊八祈福，五谷丰登',
+                    '八方来财，万事如意',
+                    '温暖身心，驱散寒冬'
+                ],
+                recommendations: [
+                    '腊八节传统美食，五谷杂粮寓意五谷丰登、八方来财',
+                    '热气腾腾的腊八粥温暖身心，适合祈求新年丰收'
+                ]
+            },
+            {
+                name: '汤圆',
+                emoji: '🍡',
+                category: '点心',
+                region: '全国',
+                seasons: ['大寒', '立春', '元宵'],
+                signatures: [
+                    '团团圆圆，阖家欢乐',
+                    '甜蜜圆满，幸福美满',
+                    '汤圆滚滚，财源滚滚'
+                ],
+                recommendations: [
+                    '元宵节传统美食，圆润饱满象征团圆美满、阖家欢乐',
+                    '汤圆甜美的馅料寓意生活幸福甜蜜'
+                ]
+            },
+            {
+                name: '凉面',
+                emoji: '🍜',
+                category: '主食',
+                region: '四川',
+                seasons: ['夏至', '小暑', '大暑', '立秋'],
+                signatures: [
+                    '清凉一夏，心静自然凉',
+                    '爽滑劲道，顺顺利利',
+                    '麻辣爽口，活力四射'
+                ],
+                recommendations: [
+                    '夏日消暑美食，清凉爽口寓意心静自然凉、清爽度夏',
+                    '适合炎热天气，帮助消暑解热，带来清爽心情'
+                ]
+            },
+            {
+                name: '绿豆汤',
+                emoji: '🥣',
+                category: '饮品',
+                region: '全国',
+                seasons: ['芒种', '夏至', '小暑', '大暑', '立秋'],
+                signatures: [
+                    '清热解毒，消暑降温',
+                    '清爽甘甜，生活甜美',
+                    '绿色健康，生机勃勃'
+                ],
+                recommendations: [
+                    '夏日解暑圣品，清热解毒寓意消除烦恼、清爽一夏',
+                    '绿豆汤绿色健康，象征生机勃勃和健康生活'
+                ]
+            },
+            {
+                name: '羊肉汤',
+                emoji: '🍲',
+                category: '汤品',
+                region: '西北',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒'],
+                signatures: [
+                    '暖身暖心，温暖过冬',
+                    '滋补养生，健康平安',
+                    '三羊开泰，好运连连'
+                ],
+                recommendations: [
+                    '冬季滋补美食，温热暖身寓意温暖过冬、身体健康',
+                    '"羊"谐音"阳"，寓意三阳开泰、好运连连'
+                ]
+            },
+            {
+                name: '糖炒栗子',
+                emoji: '🌰',
+                category: '小吃',
+                region: '全国',
+                seasons: ['立秋', '处暑', '白露', '秋分', '寒露', '霜降'],
+                signatures: [
+                    '栗香四溢，好运从天而降',
+                    '金秋时节，收获满满',
+                    '甜甜蜜蜜，生活美满'
+                ],
+                recommendations: [
+                    '秋日街头经典小吃，香甜软糯寓意收获满满、生活甜美',
+                    '金秋时节品尝栗子，象征丰收和圆满'
+                ]
+            },
+            {
+                name: '桂花糕',
+                emoji: '🍰',
+                category: '点心',
+                region: '江南',
+                seasons: ['白露', '秋分', '寒露'],
+                signatures: [
+                    '桂花飘香，香飘万里',
+                    '高贵典雅，步步高升',
+                    '甜而不腻，恰到好处'
+                ],
+                recommendations: [
+                    '秋季桂花开时品尝，寓意高洁品格和声名远播',
+                    '桂花糕精致美观，象征生活精致有品味'
+                ]
+            },
+            {
+                name: '火锅鸡',
+                emoji: '🍲',
+                category: '主食',
+                region: '河北',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒'],
+                signatures: [
+                    '火热沸腾，红红火火',
+                    '鸡祥如意，大吉大利',
+                    '暖身暖心，温暖过冬'
+                ],
+                recommendations: [
+                    '冬季暖身美食，火锅沸腾象征事业生活红红火火',
+                    '"鸡"谐音"吉"，寓意大吉大利，适合冬日祈求好运'
+                ]
+            },
+            {
+                name: '醪糟小汤圆',
+                emoji: '🍵',
+                category: '甜品',
+                region: '四川',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '大寒', '春节'],
+                signatures: [
+                    '甜甜蜜蜜，团团圆圆',
+                    '酒酿醇香，福气绵长',
+                    '温暖身心，幸福美满'
+                ],
+                recommendations: [
+                    '冬季暖心甜品，甜美寓意生活甜蜜、家庭团圆',
+                    '醪糟发酵寓意福气经过时间酝酿更加醇厚'
+                ]
+            },
+            {
+                name: '虫草花鸡汤',
+                emoji: '🍲',
+                category: '汤品',
+                region: '粤菜',
+                seasons: ['立冬', '小雪', '大雪', '冬至', '小寒', '大寒', '惊蛰', '春分'],
+                signatures: [
+                    '滋补养生，健康长寿',
+                    '金鸡独立，出类拔萃',
+                    '温补元气，活力满满'
+                ],
+                recommendations: [
+                    '秋冬滋补汤品，虫草花和鸡肉寓意健康长寿、元气满满',
+                    '适合秋冬进补，为身体积蓄能量，增强抵抗力'
+                ]
+            },
+            {
+                name: '糖油粑粑',
+                emoji: '🍡',
+                category: '小吃',
+                region: '湖南',
+                seasons: ['立春', '雨水', '惊蛰', '春分', '立秋', '处暑'],
+                signatures: [
+                    '甜蜜可口，生活甜蜜',
+                    '金黄灿烂，财运亨通',
+                    '软糯香甜，温柔待人'
+                ],
+                recommendations: [
+                    '湖南特色小吃，甜蜜软糯寓意生活甜甜蜜蜜',
+                    '金黄色泽象征财富和好运，适合祈求财运'
+                ]
+            },
+            {
+                name: '艾窝窝',
+                emoji: '🍘',
+                category: '点心',
+                region: '北京',
+                seasons: ['立春', '雨水', '春分'],
+                signatures: [
+                    '春日尝鲜，生机勃勃',
+                    '白白嫩嫩，纯真美好',
+                    '甜甜蜜蜜，幸福美满'
+                ],
+                recommendations: [
+                    '春季传统糕点，艾草寓意辟邪纳福、健康平安',
+                    '适合春日品尝，象征生机勃勃和新的开始'
+                ]
+            }
+        ];
+
+        // 获取符合当前节气的食物列表
+        function getSeasonalFoods(currentSeason) {
+            // 获取当前节气
+            const seasonName = currentSeason.name;
+
+            // 获取临近节气（前后各一个）
+            const allSeasons = ['立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪', '冬至', '小寒', '大寒'];
+            const currentIndex = allSeasons.indexOf(seasonName);
+
+            let nearbySeasons = [seasonName];
+            if (currentIndex > 0) nearbySeasons.push(allSeasons[currentIndex - 1]);
+            if (currentIndex < allSeasons.length - 1) nearbySeasons.push(allSeasons[currentIndex + 1]);
+
+            // 特殊节气：春节、元宵、端午、中秋
+            const specialSeasons = ['春节', '元宵', '端午', '中秋'];
+            specialSeasons.forEach(s => {
+                if (!nearbySeasons.includes(s)) nearbySeasons.push(s);
+            });
+
+            // 筛选符合节气的食物
+            const seasonalFoods = foodDatabase.filter(food => {
+                return food.seasons && food.seasons.some(s => nearbySeasons.includes(s));
+            });
+
+            return { seasonalFoods, nearbySeasons };
+        }
+
+        // 抽签主函数
+        function drawFortune() {
+            const button = document.getElementById('fortuneButton');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+
+            // 播放点击音效
+            playSound('click');
+
+            // 禁用按钮，显示加载动画
+            button.disabled = true;
+            button.textContent = '🎲 正在抽签...';
+            loading.classList.add('show');
+            result.classList.remove('show');
+
+            // 模拟抽签过程
+            setTimeout(() => {
+                // 获取时令信息
+                const season = getCurrentSeason();
+
+                // 获取符合当前节气的食物
+                const { seasonalFoods, nearbySeasons } = getSeasonalFoods(season);
+
+                // 决定推荐数量和策略
+                const count = Math.random() > 0.5 ? 2 : 1;
+                const selectedFoods = [];
+                const usedIndices = new Set();
+
+                // 70%概率优先推荐时令食物，30%概率随机推荐
+                const prioritizeSeasonal = Math.random() < 0.7;
+
+                if (prioritizeSeasonal && seasonalFoods.length > 0) {
+                    // 优先从时令食物中选择
+                    while (selectedFoods.length < count && selectedFoods.length < seasonalFoods.length) {
+                        const index = Math.floor(Math.random() * seasonalFoods.length);
+                        if (!usedIndices.has(index)) {
+                            usedIndices.add(index);
+                            selectedFoods.push({
+                                ...seasonalFoods[index],
+                                isSeasonal: true,
+                                matchedSeason: seasonalFoods[index].seasons.find(s => nearbySeasons.includes(s))
+                            });
+                        }
+                    }
+
+                    // 如果时令食物不够，从全部食物中补充
+                    while (selectedFoods.length < count) {
+                        const index = Math.floor(Math.random() * foodDatabase.length);
+                        if (!usedIndices.has(index)) {
+                            usedIndices.add(index);
+                            selectedFoods.push({ ...foodDatabase[index], isSeasonal: false });
+                        }
+                    }
+                } else {
+                    // 随机推荐
+                    while (selectedFoods.length < count) {
+                        const index = Math.floor(Math.random() * foodDatabase.length);
+                        if (!usedIndices.has(index)) {
+                            usedIndices.add(index);
+                            // 检查是否恰好符合节气
+                            const isSeasonal = foodDatabase[index].seasons &&
+                                foodDatabase[index].seasons.some(s => nearbySeasons.includes(s));
+                            selectedFoods.push({
+                                ...foodDatabase[index],
+                                isSeasonal,
+                                matchedSeason: isSeasonal ? foodDatabase[index].seasons.find(s => nearbySeasons.includes(s)) : null
+                            });
+                        }
+                    }
+                }
+
+                // 显示结果
+                displayResult(selectedFoods, season, nearbySeasons);
+
+                // 播放音效和烟花
+                playSound('success');
+                createFirework();
+                playSound('reveal');
+
+                // 恢复按钮
+                button.disabled = false;
+                button.textContent = '🎲 再次抽签';
+                loading.classList.remove('show');
+            }, 2000);
+        }
+
+        // 显示结果
+        function displayResult(foods, season, nearbySeasons) {
+            const resultDiv = document.getElementById('result');
+            const seasonTag = document.getElementById('seasonTag');
+            const foodItems = document.getElementById('foodItems');
+            const fortuneSignature = document.getElementById('fortuneSignature');
+            const recommendation = document.getElementById('recommendation');
+
+            // 设置时令标签
+            const seasonalInfo = foods.some(f => f.isSeasonal)
+                ? `${season.emoji} ${season.name}时令推荐`
+                : `${season.emoji} ${season.name}食运`;
+            seasonTag.textContent = seasonalInfo;
+
+            // 清空并添加食物项
+            foodItems.innerHTML = '';
+            foods.forEach(food => {
+                const foodItem = document.createElement('div');
+                foodItem.className = 'food-item';
+
+                // 随机选择签名和推荐理由
+                const signature = food.signatures[Math.floor(Math.random() * food.signatures.length)];
+                const recommend = food.recommendations[Math.floor(Math.random() * food.recommendations.length)];
+
+                // 判断是否有时令标签
+                const seasonBadge = food.isSeasonal
+                    ? `<div style="background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; display: inline-block; margin-top: 8px;">🌸 ${food.matchedSeason || season.name}时令</div>`
+                    : '';
+
+                foodItem.innerHTML = `
+                    <div class="food-emoji">${food.emoji}</div>
+                    <div class="food-name">${food.name}</div>
+                    <div style="color: #999; font-size: 0.9rem; margin-bottom: 10px;">
+                        ${food.category} · ${food.region}风味
+                    </div>
+                    ${seasonBadge}
+                `;
+                foodItems.appendChild(foodItem);
+            });
+
+            // 设置食运签名（使用第一个食物的签名）
+            fortuneSignature.textContent = foods[0].signatures[Math.floor(Math.random() * foods[0].signatures.length)];
+
+            // 设置推荐理由（合并多个食物的推荐，并添加节气说明）
+            let recommendationText = '';
+
+            // 如果有时令食物，添加节气说明
+            const seasonalFoods = foods.filter(f => f.isSeasonal);
+            if (seasonalFoods.length > 0) {
+                const seasonalFoodNames = seasonalFoods.map(f => f.name).join('、');
+                recommendationText += `【${season.name}时令】正值${season.name}时节，特别推荐${seasonalFoodNames}等时令美食，顺应节气而食，养生又吉利！\n\n`;
+            } else {
+                recommendationText += `【${season.name}时节】当前虽非特定食物的时令，但美食不分时节，随缘即是最好。\n\n`;
+            }
+
+            foods.forEach((food, index) => {
+                const recommend = food.recommendations[Math.floor(Math.random() * food.recommendations.length)];
+                recommendationText += `【${food.name}】${food.isSeasonal ? '🌸时令推荐：' : ''}${recommend}`;
+            });
+            recommendation.textContent = recommendationText;
+
+            // 显示结果
+            resultDiv.classList.add('show');
+        }
+
+        // 页面加载完成提示
+        window.onload = function() {
+            console.log('🥢 今日食运已准备就绪！');
+        };
+    </script>
+</body>
+</html>
