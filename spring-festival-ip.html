@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧧 春节专属IP - 你的新年动物守护神</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF4500 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 烟花背景 */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 灯笼装饰 */
+        .lantern {
+            position: fixed;
+            width: 60px;
+            height: 80px;
+            background: radial-gradient(ellipse at center, #FF6B6B 0%, #DC143C 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.3);
+            animation: swing 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .lantern::before {
+            content: '福';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .lantern::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .lantern-top {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            background: #FFD700;
+            border-radius: 5px 5px 0 0;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .lantern-1 { top: 20px; left: 5%; animation-delay: 0s; }
+        .lantern-2 { top: 20px; right: 5%; animation-delay: 0.5s; }
+        .lantern-3 { top: 120px; left: 8%; animation-delay: 1s; }
+        .lantern-4 { top: 120px; right: 8%; animation-delay: 1.5s; }
+
+        /* 主容器 */
+        .container {
+            background: linear-gradient(145deg, #FFF5E6 0%, #FFE4CC 100%);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.5),
+                        0 0 100px rgba(255, 215, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 4px solid #FFD700;
+            overflow: hidden;
+        }
+
+        /* 标题 */
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #DC143C 0%, #FF4500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: titleGlow 2s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(220, 20, 60, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8B0000;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* 表单样式 */
+        .form-section {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-size: 1.1rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .form-label::before {
+            content: '🧧';
+            margin-right: 8px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .option-btn {
+            background: linear-gradient(145deg, #FFF 0%, #FFE4CC 100%);
+            border: 2px solid #FFD700;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: #8B0000;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.1);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.3);
+            border-color: #DC143C;
+        }
+
+        .option-btn.selected {
+            background: linear-gradient(145deg, #DC143C 0%, #FF4500 100%);
+            color: white;
+            border-color: #FFD700;
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);
+        }
+
+        /* 抽盲盒按钮 */
+        .blindbox-button {
+            background: linear-gradient(145deg, #DC143C 0%, #FF4500 50%, #FFD700 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.5);
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-top: 20px;
+        }
+
+        .blindbox-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+        }
+
+        .blindbox-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .blindbox-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .blindbox-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* 盲盒动画 */
+        .blindbox-container {
+            display: none;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+
+        .blindbox-container.show {
+            display: block;
+        }
+
+        .blindbox {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .blindbox-body {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #FF6B6B 0%, #DC143C 100%);
+            border-radius: 20px;
+            margin: 25px auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        inset 0 0 30px rgba(255, 215, 0, 0.3);
+            border: 3px solid #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .blindbox-ribbon {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 30px;
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .blindbox-open {
+            animation: shake 0.5s ease-in-out 3, openBox 0.8s ease-out 1.5s forwards;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        @keyframes openBox {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* 结果展示 */
+        .result {
+            display: none;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* IP形象卡片 */
+        .ip-card {
+            background: linear-gradient(145deg, #FFF5E6 0%, #FFE4CC 100%);
+            border: 4px solid #FFD700;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ip-card::before {
+            content: '🧧';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 2rem;
+            animation: bounce 1s ease infinite;
+        }
+
+        .ip-card::after {
+            content: '✨';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            animation: bounce 1s ease infinite 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ip-avatar {
+            font-size: 8rem;
+            margin: 20px 0;
+            animation: avatarFloat 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        .ip-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #DC143C 0%, #FF4500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+        }
+
+        .ip-title {
+            font-size: 1.3rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #FFE4CC 0%, #FFD700 100%);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 2px solid #DC143C;
+        }
+
+        /* 签名卡片 */
+        .signature-card {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 3px dashed #8B0000;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+        }
+
+        .signature-label {
+            font-size: 1rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .signature-text {
+            font-size: 1.3rem;
+            color: #8B0000;
+            font-weight: bold;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* 推荐理由 */
+        .recommendation {
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: left;
+            border: 3px solid #FFD700;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .recommendation-label {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .recommendation-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: none;
+            margin: 30px 0;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading-text {
+            font-size: 1.3rem;
+            color: #8B0000;
+            font-weight: bold;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 烟花粒子 */
+        .firework-particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: fireworkBurst 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes fireworkBurst {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(30);
+                opacity: 0;
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .ip-name {
+                font-size: 1.8rem;
+            }
+
+            .ip-avatar {
+                font-size: 5rem;
+            }
+
+            .blindbox-button {
+                padding: 15px 40px;
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 25px;
+            }
+
+            .option-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .lantern {
+                width: 40px;
+                height: 60px;
+            }
+
+            .lantern::before {
+                font-size: 18px;
+            }
+        }
+
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.4;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .deco-1 { top: 30px; left: 30px; animation-delay: 0s; }
+        .deco-2 { top: 30px; right: 30px; animation-delay: 0.3s; }
+        .deco-3 { bottom: 30px; left: 30px; animation-delay: 0.6s; }
+        .deco-4 { bottom: 30px; right: 30px; animation-delay: 0.9s; }
+    </style>
+</head>
+<body>
+    <!-- 烟花画布 -->
+    <canvas class="fireworks" id="fireworks"></canvas>
+
+    <!-- 灯笼装饰 -->
+    <div class="lantern lantern-1">
+        <div class="lantern-top"></div>
+    </div>
+    <div class="lantern lantern-2">
+        <div class="lantern-top"></div>
+    </div>
+    <div class="lantern lantern-3">
+        <div class="lantern-top"></div>
+    </div>
+    <div class="lantern lantern-4">
+        <div class="lantern-top"></div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 装饰 -->
+        <div class="decoration deco-1">🧧</div>
+        <div class="decoration deco-2">🎊</div>
+        <div class="decoration deco-3">🎉</div>
+        <div class="decoration deco-4">✨</div>
+
+        <!-- 标题 -->
+        <h1 class="title">🧧 春节专属IP 🧧</h1>
+        <p class="subtitle">抽取你的新年动物守护神</p>
+
+        <!-- 输入表单 -->
+        <div id="inputForm">
+            <!-- 性别选择 -->
+            <div class="form-section">
+                <label class="form-label">选择性别</label>
+                <div class="option-group" id="genderOptions">
+                    <button class="option-btn" data-value="男" onclick="selectOption('gender', '男')">👨 男生</button>
+                    <button class="option-btn" data-value="女" onclick="selectOption('gender', '女')">👩 女生</button>
+                </div>
+            </div>
+
+            <!-- 年龄段选择 -->
+            <div class="form-section">
+                <label class="form-label">选择年龄段</label>
+                <div class="option-group" id="ageOptions">
+                    <button class="option-btn" data-value="儿童" onclick="selectOption('age', '儿童')">👶 儿童 (0-12岁)</button>
+                    <button class="option-btn" data-value="少年" onclick="selectOption('age', '少年')">🧒 少年 (13-17岁)</button>
+                    <button class="option-btn" data-value="青年" onclick="selectOption('age', '青年')">🧑 青年 (18-35岁)</button>
+                    <button class="option-btn" data-value="中年" onclick="selectOption('age', '中年')">👨 中年 (36-55岁)</button>
+                    <button class="option-btn" data-value="老年" onclick="selectOption('age', '老年')">👴 老年 (55岁+)</button>
+                </div>
+            </div>
+
+            <!-- 偏好动物选择 -->
+            <div class="form-section">
+                <label class="form-label">选择你喜欢的动物类型</label>
+                <div class="option-group" id="animalOptions">
+                    <button class="option-btn" data-value="龙" onclick="selectOption('animal', '龙')">🐉 龙</button>
+                    <button class="option-btn" data-value="虎" onclick="selectOption('animal', '虎')">🐯 虎</button>
+                    <button class="option-btn" data-value="兔" onclick="selectOption('animal', '兔')">🐰 兔</button>
+                    <button class="option-btn" data-value="蛇" onclick="selectOption('animal', '蛇')">🐍 蛇</button>
+                    <button class="option-btn" data-value="马" onclick="selectOption('animal', '马')">🐴 马</button>
+                    <button class="option-btn" data-value="羊" onclick="selectOption('animal', '羊')">🐑 羊</button>
+                    <button class="option-btn" data-value="猴" onclick="selectOption('animal', '猴')">🐵 猴</button>
+                    <button class="option-btn" data-value="鸡" onclick="selectOption('animal', '鸡')">🐔 鸡</button>
+                    <button class="option-btn" data-value="狗" onclick="selectOption('animal', '狗')">🐕 狗</button>
+                    <button class="option-btn" data-value="猪" onclick="selectOption('animal', '猪')">🐷 猪</button>
+                    <button class="option-btn" data-value="鼠" onclick="selectOption('animal', '鼠')">🐭 鼠</button>
+                    <button class="option-btn" data-value="牛" onclick="selectOption('animal', '牛')">🐮 牛</button>
+                    <button class="option-btn" data-value="随机" onclick="selectOption('animal', '随机')">🎲 随机惊喜</button>
+                </div>
+            </div>
+
+            <!-- 抽盲盒按钮 -->
+            <button class="blindbox-button" id="blindboxButton" onclick="drawBlindBox()" disabled>
+                🎁 抽取新年IP
+            </button>
+        </div>
+
+        <!-- 盲盒动画 -->
+        <div class="blindbox-container" id="blindboxContainer">
+            <div class="blindbox" id="blindbox">
+                <div class="blindbox-body">
+                    🎁
+                </div>
+                <div class="blindbox-ribbon"></div>
+            </div>
+            <p class="loading-text" style="margin-top: 20px;">正在为你生成专属IP...</p>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="result" id="result">
+            <div class="ip-card">
+                <div class="ip-avatar" id="ipAvatar">🐉</div>
+                <div class="ip-name" id="ipName">金龙宝宝</div>
+                <div class="ip-title" id="ipTitle">🧧 2025新年守护神 🧧</div>
+            </div>
+
+            <div class="signature-card">
+                <div class="signature-label">✨ 春节祝福签名 ✨</div>
+                <div class="signature-text" id="signatureText">金龙献瑞，财源滚滚来！</div>
+            </div>
+
+            <div class="recommendation">
+                <div class="recommendation-label">💫 推荐理由</div>
+                <div class="recommendation-text" id="recommendationText">
+                    龙是中华民族的象征，寓意着尊贵、力量和好运。金龙宝宝将为你带来满满的财运和福气！
+                </div>
+            </div>
+
+            <button class="blindbox-button" onclick="resetForm()" style="margin-top: 30px;">
+                🎁 再抽一次
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 用户选择
+        let userSelection = {
+            gender: null,
+            age: null,
+            animal: null
+        };
+
+        // 音效
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'select') {
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.15);
+            } else if (type === 'open') {
+                // 盲盒开启音效
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, index) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.setValueAtTime(freq, audioContext.currentTime + index * 0.2);
+                    gain.gain.setValueAtTime(0.3, audioContext.currentTime + index * 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.2 + 0.3);
+                    osc.start(audioContext.currentTime + index * 0.2);
+                    osc.stop(audioContext.currentTime + index * 0.2 + 0.3);
+                });
+            } else if (type === 'reveal') {
+                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.5);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+        }
+
+        // 选择选项
+        function selectOption(type, value) {
+            playSound('select');
+            userSelection[type] = value;
+
+            // 更新UI
+            const group = document.getElementById(type + 'Options');
+            const buttons = group.getElementsByClassName('option-btn');
+            for (let btn of buttons) {
+                btn.classList.remove('selected');
+            }
+            event.target.classList.add('selected');
+
+            // 检查是否所有选项都已选择
+            checkFormComplete();
+        }
+
+        // 检查表单是否完成
+        function checkFormComplete() {
+            const button = document.getElementById('blindboxButton');
+            if (userSelection.gender && userSelection.age && userSelection.animal) {
+                button.disabled = false;
+            }
+        }
+
+        // 动物IP数据库
+        const animalIPs = {
+            '龙': {
+                names: ['金龙宝宝', '玉龙公主', '神龙少侠', '祥龙长者'],
+                avatars: ['🐉', '🌟', '💫', '⭐'],
+                titles: ['威严尊贵', '霸气十足', '尊贵不凡', '气宇轩昂'],
+                signatures: [
+                    '金龙献瑞，财源滚滚来！',
+                    '龙腾虎跃，事业步步高！',
+                    '祥龙昂首，福禄寿喜全！',
+                    '龙马精神，健康又精神！'
+                ],
+                recommendations: [
+                    '龙是中华民族的图腾，象征着尊贵、力量和好运。选择龙作为你的守护神，预示着新的一年你将龙腾虎跃，事业腾飞，财源广进！',
+                    '龙代表着皇权和威严，寓意你将在新的一年里展现出非凡的领导力和影响力，事业蒸蒸日上！'
+                ]
+            },
+            '虎': {
+                names: ['福虎宝宝', '瑞虎少侠', '虎虎生威'],
+                avatars: ['🐯', '😸', '🦁'],
+                titles: ['虎虎生威', '威风凛凛', '勇猛无敌'],
+                signatures: [
+                    '虎年行大运，如虎添翼！',
+                    '虎虎生威，气势如虹！',
+                    '福虎迎春，好运连连！',
+                    '虎跃龙腾，大展宏图！'
+                ],
+                recommendations: [
+                    '虎是百兽之王，象征着勇敢、力量和威严。虎年守护神将为你带来无穷的勇气和力量，助你在新的一年里克服一切困难！',
+                    '虎代表着勇猛向前，寓意你将在新的一年里如虎添翼，事业和生活都将迎来新的突破！'
+                ]
+            },
+            '兔': {
+                names: ['玉兔宝宝', '乖乖兔', '月兔仙子'],
+                avatars: ['🐰', '🐇', '🌙'],
+                titles: ['聪明伶俐', '活泼可爱', '温柔善良'],
+                signatures: [
+                    '兔年大吉，前兔无量！',
+                    '玉兔迎春，福满人间！',
+                    '动如脱兔，效率倍增！',
+                    '兔飞猛进，步步高升！'
+                ],
+                recommendations: [
+                    '兔象征着机敏、聪明和可爱。兔年守护神将带给你敏捷的思维和快速的执行力，让你在新年里效率倍增！',
+                    '兔子温柔善良，寓意你将在新的一年里人缘极佳，得到贵人相助，事业和生活都顺顺利利！'
+                ]
+            },
+            '蛇': {
+                names: ['金蛇宝宝', '灵蛇仙子', '小龙女'],
+                avatars: ['🐍', '✨', '💎'],
+                titles: ['智慧超群', '灵活机敏', '神秘优雅'],
+                signatures: [
+                    '金蛇狂舞，财源滚滚！',
+                    '灵蛇出洞，好运连连！',
+                    '蛇年大吉，富贵双全！',
+                    '金蛇献瑞，福满堂！'
+                ],
+                recommendations: [
+                    '蛇象征着智慧、神秘和重生。蛇年守护神将赐予你超凡的智慧，助你在新的一年里洞察先机，把握机遇！',
+                    '蛇是龙的化身，寓意你将在新的一年里蜕变成长，从小龙飞升成龙，事业财运双丰收！'
+                ]
+            },
+            '马': {
+                names: ['千里马', '骏马宝宝', '飞马少侠'],
+                avatars: ['🐴', '🦄', '⚡'],
+                titles: ['马到成功', '勇往直前', '奔腾不息'],
+                signatures: [
+                    '马到成功，一马当先！',
+                    '龙马精神，事业兴旺！',
+                    '马不停蹄，财源广进！',
+                    '万马奔腾，气势如虹！'
+                ],
+                recommendations: [
+                    '马象征着速度、力量和成功。马年守护神将助你在新的一年里马到成功，事业和生活都奔腾向前！',
+                    '千里马常有，而伯乐不常有。选择马作为守护神，说明你是千里马，新的一年必将在事业上大展宏图！'
+                ]
+            },
+            '羊': {
+                names: ['喜羊羊', '金羊宝宝', '祥羊仙子'],
+                avatars: ['🐑', '🐏', '☁️'],
+                titles: ['吉祥如意', '温顺善良', '三阳开泰'],
+                signatures: [
+                    '三阳开泰，财源滚滚！',
+                    '羊年大吉，喜气洋洋！',
+                    '吉羊如意，福星高照！',
+                    '金羊报喜，好运连连！'
+                ],
+                recommendations: [
+                    '羊象征着吉祥、温顺和美好。"羊"谐音"祥"，羊年守护神将为你带来满满的吉祥和福气！',
+                    '三阳开泰是传统吉祥语，寓意新的一年里好运连连，事业、财运、健康三丰收！'
+                ]
+            },
+            '猴': {
+                names: ['金猴宝宝', '灵猴大圣', '美猴王'],
+                avatars: ['🐵', '🎭', '👑'],
+                titles: ['聪明伶俐', '活泼机智', '神通广大'],
+                signatures: [
+                    '金猴献瑞，财源滚滚！',
+                    '猴年大吉，聪明伶俐！',
+                    '灵猴献宝，福星高照！',
+                    '猴年行大运，步步高升！'
+                ],
+                recommendations: [
+                    '猴象征着聪明、机智和灵活。猴年守护神将赐予你超凡的智慧，让你在新的一年里机敏过人，把握每一个机会！',
+                    '孙悟空是智慧的化身，选择猴作为守护神，预示你将在新的一年里像美猴王一样，神通广大，所向披靡！'
+                ]
+            },
+            '鸡': {
+                names: ['金鸡宝宝', '凤凰仙子', '锦鸡少侠'],
+                avatars: ['🐔', '🌅', '💫'],
+                titles: ['金鸡报晓', '勤奋努力', '锦上添花'],
+                signatures: [
+                    '金鸡报晓，好运连连！',
+                    '鸡年大吉，金鸡独立！',
+                    '闻鸡起舞，勤劳致富！',
+                    '金鸡献瑞，富贵双全！'
+                ],
+                recommendations: [
+                    '鸡象征着勤奋、守时和吉祥。"鸡"谐音"吉"，鸡年守护神将为你带来大吉大利的好运！',
+                    '金鸡报晓寓意着新的开始和希望，选择鸡作为守护神，预示你将在新的一年里早起努力，收获满满！'
+                ]
+            },
+            '狗': {
+                names: ['福狗宝宝', '旺旺少侠', '忠犬护卫'],
+                avatars: ['🐕', '🐕‍🦺', '🦮'],
+                titles: ['忠诚可靠', '旺旺来财', '忠心耿耿'],
+                signatures: [
+                    '狗年大吉，旺旺来财！',
+                    '福狗迎春，财源滚滚！',
+                    '汪汪旺运，好运连连！',
+                    '狗年行大运，富贵双全！'
+                ],
+                recommendations: [
+                    '狗象征着忠诚、可靠和守护。狗年守护神将忠诚地守护着你，为你带来旺旺的财运和好运！',
+                    '"狗"谐音"旺"，选择狗作为守护神，寓意新的一年里你的财运和事业都将旺旺旺！'
+                ]
+            },
+            '猪': {
+                names: ['金猪宝宝', '福猪少侠', '好运猪'],
+                avatars: ['🐷', '🐽', '💰'],
+                titles: ['福气满满', '财运亨通', '福星高照'],
+                signatures: [
+                    '金猪拱门，财源滚滚！',
+                    '猪年大吉，福气满满！',
+                    '福猪迎春，好运连连！',
+                    '金猪报喜，富贵双全！'
+                ],
+                recommendations: [
+                    '猪象征着福气、财富和圆满。猪年守护神将为你带来满满的福气和财运，让你新的一年里财源广进！',
+                    '猪是福气的象征，选择猪作为守护神，预示你将在新的一年里福气满满，生活富足美满！'
+                ]
+            },
+            '鼠': {
+                names: ['金鼠宝宝', '灵鼠少侠', '机灵鼠'],
+                avatars: ['🐭', '🧀', '💎'],
+                titles: ['聪明伶俐', '机灵过人', '鼠兆丰年'],
+                signatures: [
+                    '金鼠献宝，财源滚滚！',
+                    '鼠年大吉，智慧超群！',
+                    '灵鼠迎春，好运连连！',
+                    '金鼠报喜，福星高照！'
+                ],
+                recommendations: [
+                    '鼠象征着聪明、机敏和积蓄。鼠年守护神将赐予你超凡的智慧，助你精明理财，财富不断积累！',
+                    '鼠是十二生肖之首，选择鼠作为守护神，寓意你将在新的一年里拔得头筹，抢占先机！'
+                ]
+            },
+            '牛': {
+                names: ['金牛宝宝', '神牛少侠', '福牛护卫'],
+                avatars: ['🐮', '🐂', '💪'],
+                titles: ['勤劳致富', '牛气冲天', '踏实肯干'],
+                signatures: [
+                    '金牛迎春，财源滚滚！',
+                    '牛年大吉，牛气冲天！',
+                    '牛气十足，事业兴旺！',
+                    '金牛献瑞，福满人间！'
+                ],
+                recommendations: [
+                    '牛象征着勤劳、坚韧和财富。牛年守护神将助你在新的一年里脚踏实地，勤劳致富，收获满满！',
+                    '"牛"谐音"纽"，寓意你将在新的一年里扭亏为盈，事业和财运都将迎来转机！'
+                ]
+            }
+        };
+
+        // 随机选择动物
+        function getRandomAnimal() {
+            const animals = Object.keys(animalIPs);
+            return animals[Math.floor(Math.random() * animals.length)];
+        }
+
+        // 抽盲盒
+        function drawBlindBox() {
+            const button = document.getElementById('blindboxButton');
+            const form = document.getElementById('inputForm');
+            const blindboxContainer = document.getElementById('blindboxContainer');
+            const result = document.getElementById('result');
+
+            playSound('select');
+
+            // 隐藏表单
+            form.style.display = 'none';
+
+            // 显示盲盒
+            blindboxContainer.classList.add('show');
+
+            // 开启动画
+            setTimeout(() => {
+                const blindbox = document.getElementById('blindbox');
+                blindbox.classList.add('blindbox-open');
+                playSound('open');
+                createFireworks();
+
+                // 显示结果
+                setTimeout(() => {
+                    blindboxContainer.classList.remove('show');
+                    showResult();
+                    playSound('reveal');
+                }, 2000);
+            }, 500);
+        }
+
+        // 显示结果
+        function showResult() {
+            const result = document.getElementById('result');
+
+            // 确定动物
+            let animal = userSelection.animal === '随机' ? getRandomAnimal() : userSelection.animal;
+            const ipData = animalIPs[animal];
+
+            // 根据性别和年龄选择名字
+            let nameIndex = 0;
+            if (userSelection.age === '儿童') {
+                nameIndex = 0;
+            } else if (userSelection.age === '少年' || userSelection.age === '青年') {
+                nameIndex = 1;
+            } else if (userSelection.gender === '女') {
+                nameIndex = 1;
+            } else {
+                nameIndex = Math.floor(Math.random() * ipData.names.length);
+            }
+
+            const name = ipData.names[nameIndex];
+            const avatar = ipData.avatars[Math.floor(Math.random() * ipData.avatars.length)];
+            const title = ipData.titles[Math.floor(Math.random() * ipData.titles.length)];
+            const signature = ipData.signatures[Math.floor(Math.random() * ipData.signatures.length)];
+            const recommendation = ipData.recommendations[Math.floor(Math.random() * ipData.recommendations.length)];
+
+            // 更新UI
+            document.getElementById('ipAvatar').textContent = avatar;
+            document.getElementById('ipName').textContent = name;
+            document.getElementById('ipTitle').textContent = `🧧 ${title} - ${animal}年守护神 🧧`;
+            document.getElementById('signatureText').textContent = signature;
+            document.getElementById('recommendationText').textContent = recommendation;
+
+            // 显示结果
+            result.classList.add('show');
+        }
+
+        // 重置表单
+        function resetForm() {
+            const form = document.getElementById('inputForm');
+            const result = document.getElementById('result');
+            const button = document.getElementById('blindboxButton');
+
+            // 重置选择
+            userSelection = {
+                gender: null,
+                age: null,
+                animal: null
+            };
+
+            // 清除选中状态
+            const selectedButtons = document.querySelectorAll('.option-btn.selected');
+            for (let btn of selectedButtons) {
+                btn.classList.remove('selected');
+            }
+
+            // 显示表单
+            form.style.display = 'block';
+            result.classList.remove('show');
+            button.disabled = true;
+        }
+
+        // 创建烟花效果
+        function createFireworks() {
+            const colors = ['#FF6B6B', '#FFD700', '#FF4500', '#FFA500', '#FF69B4', '#00FF00'];
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'firework-particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.top = Math.random() * window.innerHeight + 'px';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 1500);
+                }, i * 30);
+            }
+        }
+
+        // 烟花动画
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Firework {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.speed = Math.random() * 3 + 2;
+                this.radius = Math.random() * 2 + 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.alpha -= this.decay;
+
+                if (this.alpha <= 0 || this.y < 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        const fireworks = [];
+        for (let i = 0; i < 100; i++) {
+            fireworks.push(new Firework());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            fireworks.forEach(fw => {
+                fw.update();
+                fw.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 窗口大小改变时重新调整画布
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 页面加载完成
+        window.onload = function() {
+            console.log('🧧 春节专属IP已准备就绪！');
+        };
+    </script>
+</body>
+</html>
