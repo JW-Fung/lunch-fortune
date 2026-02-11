@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧧 春节专属IP - AI增强版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF4500 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 烟花背景 */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 灯笼装饰 */
+        .lantern {
+            position: fixed;
+            width: 60px;
+            height: 80px;
+            background: radial-gradient(ellipse at center, #FF6B6B 0%, #DC143C 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.3);
+            animation: swing 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .lantern::before {
+            content: '福';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #FFD700;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .lantern::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .lantern-top {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            background: #FFD700;
+            border-radius: 5px 5px 0 0;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .lantern-1 { top: 20px; left: 5%; animation-delay: 0s; }
+        .lantern-2 { top: 20px; right: 5%; animation-delay: 0.5s; }
+        .lantern-3 { top: 120px; left: 8%; animation-delay: 1s; }
+        .lantern-4 { top: 120px; right: 8%; animation-delay: 1.5s; }
+
+        /* 主容器 */
+        .container {
+            background: linear-gradient(145deg, #FFF5E6 0%, #FFE4CC 100%);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.5),
+                        0 0 100px rgba(255, 215, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 4px solid #FFD700;
+            overflow: hidden;
+        }
+
+        /* 标题 */
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #DC143C 0%, #FF4500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: titleGlow 2s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(220, 20, 60, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8B0000;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 表单样式 */
+        .form-section {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-size: 1.1rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .form-label::before {
+            content: '✨';
+            margin-right: 8px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .option-btn {
+            background: linear-gradient(145deg, #FFF 0%, #FFE4CC 100%);
+            border: 2px solid #FFD700;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: #8B0000;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.1);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.3);
+            border-color: #DC143C;
+        }
+
+        .option-btn.selected {
+            background: linear-gradient(145deg, #DC143C 0%, #FF4500 100%);
+            color: white;
+            border-color: #FFD700;
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);
+        }
+
+        /* 抽盲盒按钮 */
+        .blindbox-button {
+            background: linear-gradient(145deg, #DC143C 0%, #FF4500 50%, #FFD700 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.5);
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-top: 20px;
+        }
+
+        .blindbox-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+        }
+
+        .blindbox-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .blindbox-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 盲盒动画 */
+        .blindbox-container {
+            display: none;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+
+        .blindbox-container.show {
+            display: block;
+        }
+
+        .blindbox {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .blindbox-body {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #FF6B6B 0%, #DC143C 100%);
+            border-radius: 20px;
+            margin: 25px auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        inset 0 0 30px rgba(255, 215, 0, 0.3);
+            border: 3px solid #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .blindbox-ribbon {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 30px;
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .blindbox-open {
+            animation: shake 0.5s ease-in-out 3, openBox 0.8s ease-out 1.5s forwards;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        @keyframes openBox {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* 结果展示 */
+        .result {
+            display: none;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* IP形象卡片 - 增强版 */
+        .ip-card {
+            background: linear-gradient(145deg, #FFF5E6 0%, #FFE4CC 100%);
+            border: 4px solid #FFD700;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ip-card::before {
+            content: '🎨';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 2rem;
+            animation: bounce 1s ease infinite;
+        }
+
+        .ip-card::after {
+            content: '✨';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            animation: bounce 1s ease infinite 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* AI生成的图片展示 */
+        .ip-image-container {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 5px solid #FFD700;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #FFE4CC 0%, #FFD700 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ip-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .ip-image:hover {
+            transform: scale(1.1);
+        }
+
+        .ip-image-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #8B0000;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #FFE4CC;
+            border-top-color: #DC143C;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .ip-avatar {
+            font-size: 6rem;
+            margin: 20px 0;
+            animation: avatarFloat 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        .ip-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #DC143C 0%, #FF4500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+        }
+
+        .ip-title {
+            font-size: 1.3rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #FFE4CC 0%, #FFD700 100%);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 2px solid #DC143C;
+        }
+
+        /* 签名卡片 - 增强版 */
+        .signature-card {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 3px dashed #8B0000;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+        }
+
+        .signature-card::before {
+            content: '🤖 AI生成';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .signature-label {
+            font-size: 1rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .signature-text {
+            font-size: 1.3rem;
+            color: #8B0000;
+            font-weight: bold;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* 推荐理由 - 增强版 */
+        .recommendation {
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: left;
+            border: 3px solid #FFD700;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .recommendation::before {
+            content: '🤖 AI智能生成';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .recommendation {
+            position: relative;
+        }
+
+        .recommendation-label {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .recommendation-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .ip-name {
+                font-size: 1.8rem;
+            }
+
+            .ip-image-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .blindbox-button {
+                padding: 15px 40px;
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 25px;
+            }
+
+            .option-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .lantern {
+                width: 40px;
+                height: 60px;
+            }
+
+            .lantern::before {
+                font-size: 18px;
+            }
+        }
+
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.4;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .deco-1 { top: 30px; left: 30px; animation-delay: 0s; }
+        .deco-2 { top: 30px; right: 30px; animation-delay: 0.3s; }
+        .deco-3 { bottom: 30px; left: 30px; animation-delay: 0.6s; }
+        .deco-4 { bottom: 30px; right: 30px; animation-delay: 0.9s; }
+    </style>
+</head>
+<body>
+    <!-- 烟花画布 -->
+    <canvas class="fireworks" id="fireworks"></canvas>
+
+    <!-- 灯笼装饰 -->
+    <div class="lantern lantern-1">
+        <div class="lantern-top"></div>
+    </div>
+    <div class="lantern lantern-2">
+        <div class="lantern-top"></div>
+    </div>
+    <div class="lantern lantern-3">
+        <div class="lantern-top"></div>
+    </div>
+    <div class="lantern lantern-4">
+        <div class="lantern-top"></div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 装饰 -->
+        <div class="decoration deco-1">🧧</div>
+        <div class="decoration deco-2">🎊</div>
+        <div class="decoration deco-3">🎉</div>
+        <div class="decoration deco-4">✨</div>
+
+        <!-- 标题 -->
+        <h1 class="title">🧧 春节专属IP 🧧</h1>
+        <p class="subtitle">AI智能生成你的新年动物守护神</p>
+        <div class="ai-badge">🤖 AI增强版</div>
+
+        <!-- 输入表单 -->
+        <div id="inputForm">
+            <!-- 性别选择 -->
+            <div class="form-section">
+                <label class="form-label">选择性别</label>
+                <div class="option-group" id="genderOptions">
+                    <button class="option-btn" data-value="男" onclick="selectOption('gender', '男')">👨 男生</button>
+                    <button class="option-btn" data-value="女" onclick="selectOption('gender', '女')">👩 女生</button>
+                </div>
+            </div>
+
+            <!-- 年龄段选择 -->
+            <div class="form-section">
+                <label class="form-label">选择年龄段</label>
+                <div class="option-group" id="ageOptions">
+                    <button class="option-btn" data-value="儿童" onclick="selectOption('age', '儿童')">👶 儿童 (0-12岁)</button>
+                    <button class="option-btn" data-value="少年" onclick="selectOption('age', '少年')">🧒 少年 (13-17岁)</button>
+                    <button class="option-btn" data-value="青年" onclick="selectOption('age', '青年')">🧑 青年 (18-35岁)</button>
+                    <button class="option-btn" data-value="中年" onclick="selectOption('age', '中年')">👨 中年 (36-55岁)</button>
+                    <button class="option-btn" data-value="老年" onclick="selectOption('age', '老年')">👴 老年 (55岁+)</button>
+                </div>
+            </div>
+
+            <!-- 偏好动物选择 -->
+            <div class="form-section">
+                <label class="form-label">选择你喜欢的动物类型</label>
+                <div class="option-group" id="animalOptions">
+                    <button class="option-btn" data-value="龙" onclick="selectOption('animal', '龙')">🐉 龙</button>
+                    <button class="option-btn" data-value="虎" onclick="selectOption('animal', '虎')">🐯 虎</button>
+                    <button class="option-btn" data-value="兔" onclick="selectOption('animal', '兔')">🐰 兔</button>
+                    <button class="option-btn" data-value="蛇" onclick="selectOption('animal', '蛇')">🐍 蛇</button>
+                    <button class="option-btn" data-value="马" onclick="selectOption('animal', '马')">🐴 马</button>
+                    <button class="option-btn" data-value="羊" onclick="selectOption('animal', '羊')">🐑 羊</button>
+                    <button class="option-btn" data-value="猴" onclick="selectOption('animal', '猴')">🐵 猴</button>
+                    <button class="option-btn" data-value="鸡" onclick="selectOption('animal', '鸡')">🐔 鸡</button>
+                    <button class="option-btn" data-value="狗" onclick="selectOption('animal', '狗')">🐕 狗</button>
+                    <button class="option-btn" data-value="猪" onclick="selectOption('animal', '猪')">🐷 猪</button>
+                    <button class="option-btn" data-value="鼠" onclick="selectOption('animal', '鼠')">🐭 鼠</button>
+                    <button class="option-btn" data-value="牛" onclick="selectOption('animal', '牛')">🐮 牛</button>
+                    <button class="option-btn" data-value="随机" onclick="selectOption('animal', '随机')">🎲 随机惊喜</button>
+                </div>
+            </div>
+
+            <!-- 抽盲盒按钮 -->
+            <button class="blindbox-button" id="blindboxButton" onclick="drawBlindBox()" disabled>
+                🎁 抽取新年IP
+            </button>
+        </div>
+
+        <!-- 盲盒动画 -->
+        <div class="blindbox-container" id="blindboxContainer">
+            <div class="blindbox" id="blindbox">
+                <div class="blindbox-body">
+                    🎁
+                </div>
+                <div class="blindbox-ribbon"></div>
+            </div>
+            <p class="loading-text" style="margin-top: 20px;">AI正在为你生成专属IP...</p>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="result" id="result">
+            <div class="ip-card">
+                <!-- AI生成的图片 -->
+                <div class="ip-image-container" id="ipImageContainer">
+                    <div class="ip-image-loading">
+                        <div class="loading-spinner"></div>
+                        <p>AI正在绘制你的专属IP...</p>
+                    </div>
+                </div>
+
+                <div class="ip-name" id="ipName">金龙宝宝</div>
+                <div class="ip-title" id="ipTitle">🧧 2025新年守护神 🧧</div>
+            </div>
+
+            <div class="signature-card">
+                <div class="signature-label">✨ 春节祝福签名 ✨</div>
+                <div class="signature-text" id="signatureText">正在生成...</div>
+            </div>
+
+            <div class="recommendation">
+                <div class="recommendation-label">💫 AI推荐理由</div>
+                <div class="recommendation-text" id="recommendationText">正在智能分析...</div>
+            </div>
+
+            <button class="blindbox-button" onclick="resetForm()" style="margin-top: 30px;">
+                🎁 再抽一次
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 用户选择
+        let userSelection = {
+            gender: null,
+            age: null,
+            animal: null
+        };
+
+        // 音效
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'select') {
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.15);
+            } else if (type === 'open') {
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, index) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.frequency.setValueAtTime(freq, audioContext.currentTime + index * 0.2);
+                    gain.gain.setValueAtTime(0.3, audioContext.currentTime + index * 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.2 + 0.3);
+                    osc.start(audioContext.currentTime + index * 0.2);
+                    osc.stop(audioContext.currentTime + index * 0.2 + 0.3);
+                });
+            } else if (type === 'reveal') {
+                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.5);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+        }
+
+        // 选择选项
+        function selectOption(type, value) {
+            playSound('select');
+            userSelection[type] = value;
+
+            const group = document.getElementById(type + 'Options');
+            const buttons = group.getElementsByClassName('option-btn');
+            for (let btn of buttons) {
+                btn.classList.remove('selected');
+            }
+            event.target.classList.add('selected');
+
+            checkFormComplete();
+        }
+
+        // 检查表单是否完成
+        function checkFormComplete() {
+            const button = document.getElementById('blindboxButton');
+            if (userSelection.gender && userSelection.age && userSelection.animal) {
+                button.disabled = false;
+            }
+        }
+
+        // AI图片生成 - 使用Pollinations AI (免费, 无需API key)
+        async function generateAIImage(animal, gender, age) {
+            const imageContainer = document.getElementById('ipImageContainer');
+
+            // 构建AI提示词
+            const styleMap = {
+                '龙': 'majestic golden dragon',
+                '虎': 'cute tiger',
+                '兔': 'adorable rabbit',
+                '蛇': 'elegant snake',
+                '马': 'strong horse',
+                '羊': 'fluffy sheep',
+                '猴': 'playful monkey',
+                '鸡': 'colorful rooster',
+                '狗': 'loyal dog',
+                '猪': 'cute pig',
+                '鼠': 'clever mouse',
+                '牛': 'strong ox'
+            };
+
+            const ageStyle = {
+                '儿童': 'chibi style, kawaii',
+                '少年': 'anime style, young',
+                '青年': 'modern style, cool',
+                '中年': 'elegant style',
+                '老年': 'wise style'
+            };
+
+            const prompt = `cute ${styleMap[animal]} character, Chinese New Year theme, red and gold colors, ${ageStyle[age] || ''}, festive, high quality, detailed`;
+            const encodedPrompt = encodeURIComponent(prompt);
+
+            // 使用Pollinations AI生成图片
+            const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=400&height=400&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
+
+            // 加载图片
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    imageContainer.innerHTML = '';
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+                    imgElement.className = 'ip-image';
+                    imgElement.alt = `${animal}IP形象`;
+                    imageContainer.appendChild(imgElement);
+                    resolve(imageUrl);
+                };
+                img.onerror = () => {
+                    // 如果AI图片加载失败，使用emoji备用
+                    const emojiMap = {
+                        '龙': '🐉', '虎': '🐯', '兔': '🐰', '蛇': '🐍',
+                        '马': '🐴', '羊': '🐑', '猴': '🐵', '鸡': '🐔',
+                        '狗': '🐕', '猪': '🐷', '鼠': '🐭', '牛': '🐮'
+                    };
+                    imageContainer.innerHTML = `<span class="ip-avatar">${emojiMap[animal]}</span>`;
+                    resolve(null);
+                };
+                img.src = imageUrl;
+            });
+        }
+
+        // AI文本生成 - 智能祝福语和推荐理由
+        function generateAIText(animal, gender, age) {
+            // 扩展的祝福语库
+            const blessings = {
+                '龙': [
+                    '金龙献瑞，财源滚滚而来！新的一年里，如龙腾飞，事业高升，财运亨通！',
+                    '祥龙昂首，福禄寿喜齐聚！龙年大吉，愿你在新的一年里龙马精神，身体健康，事业兴旺！',
+                    '龙行龘龘，前程万里！愿金龙宝宝守护着你，新的一年里大展宏图，心想事成！',
+                    '金龙贺春，富贵吉祥！祝福你在新的一年里如龙入海，势不可挡，财源广进！'
+                ],
+                '虎': [
+                    '虎虎生威，气势如虹！新的一年，愿你如虎添翼，事业腾飞，勇敢前行！',
+                    '福虎迎春，好运连连！虎年大吉，愿瑞虎守护神为你带来满满的好运和福气！',
+                    '龙腾虎跃，大展宏图！祝福你在新的一年里虎虎生威，事业和生活都红红火火！',
+                    '虎年行大运，如虎添翼！愿勇敢的虎之精神助你克服一切困难，勇攀高峰！'
+                ],
+                '兔': [
+                    '玉兔迎春，福满人间！愿机灵可爱的兔宝宝为你带来一整年的好运和快乐！',
+                    '前兔无量，大展宏图！祝福你在新的一年里动如脱兔，效率倍增，收获满满！',
+                    '兔年大吉，聪明伶俐！愿温柔的兔守护神助你新的一年里人缘极佳，贵人相助！',
+                    '兔飞猛进，步步高升！愿可爱的玉兔宝宝守护着你，新的一年里甜甜蜜蜜！'
+                ],
+                '蛇': [
+                    '金蛇狂舞，财源滚滚！愿智慧灵蛇助你新的一年里洞察先机，把握财富机遇！',
+                    '灵蛇出洞，好运连连！蛇年大吉，愿你如金蛇献瑞，事业财运双丰收！',
+                    '小龙蜕变，展翅高飞！祝福你在新的一年里像小龙化龙一样，实现华丽蜕变！',
+                    '金蛇报喜，福星高照！愿神秘的灵蛇守护神赐予你超凡智慧，心想事成！'
+                ],
+                '马': [
+                    '马到成功，一马当先！愿千里马助你新的一年里事业奔腾向前，马不停蹄！',
+                    '龙马精神，事业兴旺！祝福你在新的一年里马不停蹄，财源广进，生活富足！',
+                    '万马奔腾，气势如虹！愿奔腾的骏马为你带来无穷的力量和前进的动力！',
+                    '马年大吉，勇往直前！愿千里马守护神助你新的一年里大展宏图，所向披靡！'
+                ],
+                '羊': [
+                    '三阳开泰，财源滚滚！愿吉祥的羊宝宝为你带来新的一年里满满的福气！',
+                    '吉羊如意，福星高照！祝福你在新的一年里喜气洋洋，好运连连，幸福安康！',
+                    '羊年大吉，吉祥如意！愿温顺的羊守护神守护着你，新的一年里平安喜乐！',
+                    '金羊报喜，好运连连！愿三羊开泰的吉祥寓意为你带来事业、财运、健康三丰收！'
+                ],
+                '猴': [
+                    '金猴献瑞，财源滚滚！愿机灵的猴宝宝赐予你新的一年里超凡的智慧和洞察力！',
+                    '猴年大吉，聪明伶俐！祝福你在新的一年里像美猴王一样，神通广大，所向披靡！',
+                    '灵猴献宝，福星高照！愿活泼的猴守护神助你新的一年里机智过人，把握机遇！',
+                    '金猴报喜，好运连连！愿聪明伶俐的猴宝宝为你带来新的一年满满的快乐和成功！'
+                ],
+                '鸡': [
+                    '金鸡报晓，好运连连！愿勤劳的鸡宝宝助你新的一年里闻鸡起舞，收获满满！',
+                    '鸡年大吉，金鸡独立！祝福你在新的一年里如金鸡高唱，声名远播，事业兴旺！',
+                    '闻鸡起舞，勤劳致富！愿守时的金鸡守护神助你新的一年里勤奋努力，财富不断积累！',
+                    '金鸡献瑞，富贵双全！愿吉祥的金鸡为你带来新的一年里大吉大利的好运！'
+                ],
+                '狗': [
+                    '狗年大吉，旺旺来财！愿忠诚的狗宝宝守护着你，新的一年里财运旺旺！',
+                    '福狗迎春，财源滚滚！祝福你在新的一年里汪汪旺运，事业和生活都红红火火！',
+                    '汪汪旺运，好运连连！愿忠犬守护神忠诚守护，助你新的一年里福星高照！',
+                    '金狗报喜，富贵双全！愿旺旺的狗之精神为你带来新的一年满满的财气和福气！'
+                ],
+                '猪': [
+                    '金猪拱门，财源滚滚！愿福气的猪宝宝为你带来新的一年里满满的财富和好运！',
+                    '猪年大吉，福气满满！祝福你在新的一年里如金猪报喜，事业财运双丰收！',
+                    '福猪迎春，好运连连！愿可爱的福猪守护神助你新的一年里生活富足，幸福美满！',
+                    '金猪献瑞，福满人间！愿福气满满的猪宝宝为你带来新的一年里团圆和美满！'
+                ],
+                '鼠': [
+                    '金鼠献宝，财源滚滚！愿机灵的鼠宝宝赐予你新的一年里精明的理财能力！',
+                    '鼠年大吉，智慧超群！祝福你在新的一年里如灵鼠出洞，抢占先机，拔得头筹！',
+                    '灵鼠迎春，好运连连！愿聪明的鼠守护神助你新的一年里洞察机遇，财富积累！',
+                    '金鼠报喜，福星高照！愿生肖之首的鼠宝宝为你带来新的一年里领头羊的好运！'
+                ],
+                '牛': [
+                    '金牛迎春，财源滚滚！愿勤劳的牛宝宝助你新的一年里脚踏实地，勤劳致富！',
+                    '牛年大吉，牛气冲天！祝福你在新的一年里如金牛献瑞，事业兴旺，财源广进！',
+                    '牛气十足，事业兴旺！愿坚韧的牛守护神助你新的一年里克服困难，收获满满！',
+                    '金牛报喜，富贵双全！愿踏实肯干的牛之精神为你带来新的一年里稳稳的幸福！'
+                ]
+            };
+
+            // 随机选择祝福语
+            const animalBlessings = blessings[animal] || blessings['龙'];
+            const signature = animalBlessings[Math.floor(Math.random() * animalBlessings.length)];
+
+            // 生成详细推荐理由
+            const recommendations = {
+                '龙': `龙作为中华民族的图腾，象征着至高无上的尊贵、无穷的力量和腾飞的事业。
+
+🎊 **文化寓意**：龙是十二生肖中唯一的神话生物，代表着皇权、尊贵和吉祥。在中华文化中，龙是天子的象征，寓意着非凡的成就和崇高的地位。
+
+💫 **新年祝福**：选择龙作为你的新年守护神，预示着${userSelection.age === '儿童' || userSelection.age === '少年' ? '小小年纪就拥有远大志向' : '事业腾飞、前程似锦'}。金龙宝宝将为你在新的一年里带来：
+
+✨ **事业运**：龙腾虎跃，步步高升
+💰 **财运**：财源滚滚，富贵有余
+🏥 **健康运**：龙马精神，身体康健
+❤️ **感情运**：龙凤呈祥，美满幸福
+
+愿你在${new Date().getFullYear() + 1}年里，如祥龙昂首，福禄双收！`,
+
+                '虎': `虎被誉为百兽之王，象征着无与伦比的勇气、威严和力量。
+
+🎊 **文化寓意**：虎代表着勇猛、刚毅和不屈的精神。在中国文化中，虎是辟邪的象征，寓意着平安吉祥。
+
+💫 **新年祝福**：${userSelection.gender === '女' ? '选择虎作为守护神，展现了你勇敢坚毅的性格' : '虎虎生威，气势如虹'}。瑞虎宝宝将为你在新的一年里带来：
+
+✨ **事业运**：如虎添翼，大展宏图
+💰 **财运**：虎跃龙腾，财源广进
+🏥 **健康运**：生龙活虎，精力充沛
+❤️ **感情运**：虎虎生威，魅力四射
+
+愿你在新的一年里，虎年行大运，勇往直前！`,
+
+                '兔': `兔子象征着机敏、聪明和可爱的温顺品质。
+
+🎊 **文化寓意**：兔代表着敏捷、机智和温和。在中国神话中，玉兔陪伴在月宫，象征着纯洁和美好。
+
+💫 **新年祝福**：${userSelection.age === '儿童' || userSelection.age === '少年' ? '可爱的兔宝宝最适合你' : '温柔善良的兔守护神'}。玉兔宝宝将为你在新的一年里带来：
+
+✨ **事业运**：动如脱兔，效率倍增
+💰 **财运**：兔飞猛进，财富增长
+🏥 **健康运**：活泼可爱，青春永驻
+❤️ **感情运**：温柔可人，人缘极佳
+
+愿你在新的一年里，兔年大吉，前兔无量！`
+            };
+
+            // 获取推荐理由或生成通用版本
+            let recommendation = recommendations[animal];
+            if (!recommendation) {
+                recommendation = `🎊 **文化寓意**：${animal}在中华文化中寓意着吉祥、美好和祝福。
+
+💫 **新年祝福**：根据你的选择（${userSelection.gender}性，${userSelection.age}），${animal}守护神将为你在新的一年里带来专属的祝福和守护。
+
+✨ **整体运势**：愿${animal}年为你带来满满的财运、健康和幸福，心想事成，万事如意！`;
+            }
+
+            return { signature, recommendation };
+        }
+
+        // 随机选择动物
+        function getRandomAnimal() {
+            const animals = ['龙', '虎', '兔', '蛇', '马', '羊', '猴', '鸡', '狗', '猪', '鼠', '牛'];
+            return animals[Math.floor(Math.random() * animals.length)];
+        }
+
+        // 抽盲盒
+        async function drawBlindBox() {
+            const button = document.getElementById('blindboxButton');
+            const form = document.getElementById('inputForm');
+            const blindboxContainer = document.getElementById('blindboxContainer');
+            const result = document.getElementById('result');
+
+            playSound('select');
+
+            form.style.display = 'none';
+            blindboxContainer.classList.add('show');
+
+            setTimeout(() => {
+                const blindbox = document.getElementById('blindbox');
+                blindbox.classList.add('blindbox-open');
+                playSound('open');
+                createFireworks();
+
+                setTimeout(() => {
+                    blindboxContainer.classList.remove('show');
+                    await showResult();
+                    playSound('reveal');
+                }, 2000);
+            }, 500);
+        }
+
+        // 显示结果
+        async function showResult() {
+            const result = document.getElementById('result');
+            result.classList.add('show');
+
+            let animal = userSelection.animal === '随机' ? getRandomAnimal() : userSelection.animal;
+
+            // 生成AI图片
+            await generateAIImage(animal, userSelection.gender, userSelection.age);
+
+            // 生成AI文本
+            const { signature, recommendation } = generateAIText(animal, userSelection.gender, userSelection.age);
+
+            // 更新签名和推荐
+            document.getElementById('signatureText').textContent = signature;
+            document.getElementById('recommendationText').textContent = recommendation;
+
+            // 更新名称和标题
+            const namePrefix = {
+                '儿童': '金',
+                '少年': '灵',
+                '青年': '瑞',
+                '中年': '祥',
+                '老年': '福'
+            };
+            const nameSuffix = {
+                '儿童': '宝宝',
+                '少年': '少侠',
+                '青年': '使者',
+                '中年': '长者',
+                '老年': '仙'
+            };
+
+            const ipName = `${namePrefix[userSelection.age] || ''}${animal}${nameSuffix[userSelection.age] || '守护神'}`;
+            document.getElementById('ipName').textContent = ipName;
+            document.getElementById('ipTitle').textContent = `🧧 ${animal}年专属守护神 🧧`;
+        }
+
+        // 重置表单
+        function resetForm() {
+            const form = document.getElementById('inputForm');
+            const result = document.getElementById('result');
+            const button = document.getElementById('blindboxButton');
+
+            userSelection = {
+                gender: null,
+                age: null,
+                animal: null
+            };
+
+            const selectedButtons = document.querySelectorAll('.option-btn.selected');
+            for (let btn of selectedButtons) {
+                btn.classList.remove('selected');
+            }
+
+            form.style.display = 'block';
+            result.classList.remove('show');
+            button.disabled = true;
+        }
+
+        // 创建烟花效果
+        function createFireworks() {
+            const colors = ['#FF6B6B', '#FFD700', '#FF4500', '#FFA500', '#FF69B4', '#00FF00'];
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'firework-particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.top = Math.random() * window.innerHeight + 'px';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 1500);
+                }, i * 30);
+            }
+        }
+
+        // 烟花动画
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Firework {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.speed = Math.random() * 3 + 2;
+                this.radius = Math.random() * 2 + 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.alpha -= this.decay;
+
+                if (this.alpha <= 0 || this.y < 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        const fireworks = [];
+        for (let i = 0; i < 100; i++) {
+            fireworks.push(new Firework());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            fireworks.forEach(fw => {
+                fw.update();
+                fw.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.onload = function() {
+            console.log('🧧 春节专属IP AI增强版已准备就绪！');
+        };
+    </script>
+</body>
+</html>
