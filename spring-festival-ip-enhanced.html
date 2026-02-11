@@ -611,8 +611,8 @@
             <div class="form-section">
                 <label class="form-label">选择性别</label>
                 <div class="option-group" id="genderOptions">
-                    <button class="option-btn" data-value="男" onclick="selectOption('gender', '男')">👨 男生</button>
-                    <button class="option-btn" data-value="女" onclick="selectOption('gender', '女')">👩 女生</button>
+                    <button class="option-btn" data-value="男" onclick="selectOption('gender', '男', this)">👨 男生</button>
+                    <button class="option-btn" data-value="女" onclick="selectOption('gender', '女', this)">👩 女生</button>
                 </div>
             </div>
 
@@ -620,11 +620,11 @@
             <div class="form-section">
                 <label class="form-label">选择年龄段</label>
                 <div class="option-group" id="ageOptions">
-                    <button class="option-btn" data-value="儿童" onclick="selectOption('age', '儿童')">👶 儿童 (0-12岁)</button>
-                    <button class="option-btn" data-value="少年" onclick="selectOption('age', '少年')">🧒 少年 (13-17岁)</button>
-                    <button class="option-btn" data-value="青年" onclick="selectOption('age', '青年')">🧑 青年 (18-35岁)</button>
-                    <button class="option-btn" data-value="中年" onclick="selectOption('age', '中年')">👨 中年 (36-55岁)</button>
-                    <button class="option-btn" data-value="老年" onclick="selectOption('age', '老年')">👴 老年 (55岁+)</button>
+                    <button class="option-btn" data-value="儿童" onclick="selectOption('age', '儿童', this)">👶 儿童 (0-12岁)</button>
+                    <button class="option-btn" data-value="少年" onclick="selectOption('age', '少年', this)">🧒 少年 (13-17岁)</button>
+                    <button class="option-btn" data-value="青年" onclick="selectOption('age', '青年', this)">🧑 青年 (18-35岁)</button>
+                    <button class="option-btn" data-value="中年" onclick="selectOption('age', '中年', this)">👨 中年 (36-55岁)</button>
+                    <button class="option-btn" data-value="老年" onclick="selectOption('age', '老年', this)">👴 老年 (55岁+)</button>
                 </div>
             </div>
 
@@ -632,19 +632,19 @@
             <div class="form-section">
                 <label class="form-label">选择你喜欢的动物类型</label>
                 <div class="option-group" id="animalOptions">
-                    <button class="option-btn" data-value="龙" onclick="selectOption('animal', '龙')">🐉 龙</button>
-                    <button class="option-btn" data-value="虎" onclick="selectOption('animal', '虎')">🐯 虎</button>
-                    <button class="option-btn" data-value="兔" onclick="selectOption('animal', '兔')">🐰 兔</button>
-                    <button class="option-btn" data-value="蛇" onclick="selectOption('animal', '蛇')">🐍 蛇</button>
-                    <button class="option-btn" data-value="马" onclick="selectOption('animal', '马')">🐴 马</button>
-                    <button class="option-btn" data-value="羊" onclick="selectOption('animal', '羊')">🐑 羊</button>
-                    <button class="option-btn" data-value="猴" onclick="selectOption('animal', '猴')">🐵 猴</button>
-                    <button class="option-btn" data-value="鸡" onclick="selectOption('animal', '鸡')">🐔 鸡</button>
-                    <button class="option-btn" data-value="狗" onclick="selectOption('animal', '狗')">🐕 狗</button>
-                    <button class="option-btn" data-value="猪" onclick="selectOption('animal', '猪')">🐷 猪</button>
-                    <button class="option-btn" data-value="鼠" onclick="selectOption('animal', '鼠')">🐭 鼠</button>
-                    <button class="option-btn" data-value="牛" onclick="selectOption('animal', '牛')">🐮 牛</button>
-                    <button class="option-btn" data-value="随机" onclick="selectOption('animal', '随机')">🎲 随机惊喜</button>
+                    <button class="option-btn" data-value="龙" onclick="selectOption('animal', '龙', this)">🐉 龙</button>
+                    <button class="option-btn" data-value="虎" onclick="selectOption('animal', '虎', this)">🐯 虎</button>
+                    <button class="option-btn" data-value="兔" onclick="selectOption('animal', '兔', this)">🐰 兔</button>
+                    <button class="option-btn" data-value="蛇" onclick="selectOption('animal', '蛇', this)">🐍 蛇</button>
+                    <button class="option-btn" data-value="马" onclick="selectOption('animal', '马', this)">🐴 马</button>
+                    <button class="option-btn" data-value="羊" onclick="selectOption('animal', '羊', this)">🐑 羊</button>
+                    <button class="option-btn" data-value="猴" onclick="selectOption('animal', '猴', this)">🐵 猴</button>
+                    <button class="option-btn" data-value="鸡" onclick="selectOption('animal', '鸡', this)">🐔 鸡</button>
+                    <button class="option-btn" data-value="狗" onclick="selectOption('animal', '狗', this)">🐕 狗</button>
+                    <button class="option-btn" data-value="猪" onclick="selectOption('animal', '猪', this)">🐷 猪</button>
+                    <button class="option-btn" data-value="鼠" onclick="selectOption('animal', '鼠', this)">🐭 鼠</button>
+                    <button class="option-btn" data-value="牛" onclick="selectOption('animal', '牛', this)">🐮 牛</button>
+                    <button class="option-btn" data-value="随机" onclick="selectOption('animal', '随机', this)">🎲 随机惊喜</button>
                 </div>
             </div>
 
@@ -745,7 +745,7 @@
         }
 
         // 选择选项
-        function selectOption(type, value) {
+        function selectOption(type, value, element) {
             playSound('select');
             userSelection[type] = value;
 
@@ -754,7 +754,7 @@
             for (let btn of buttons) {
                 btn.classList.remove('selected');
             }
-            event.target.classList.add('selected');
+            element.classList.add('selected');
 
             checkFormComplete();
         }
