@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试 - 春节IP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background: #f0f0f0;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>春节IP测试页面</h1>
+    <button onclick="testClick()">点击测试</button>
+    <div id="status"></div>
+
+    <script>
+        function testClick() {
+            console.log('测试按钮被点击了！');
+            document.getElementById('status').textContent = 'JavaScript 正在工作！';
+            document.querySelector('button').style.background = '#45a049';
+        }
+    </script>
+</body>
+</html>
