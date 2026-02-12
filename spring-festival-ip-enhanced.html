@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧧 春节专属IP - 2025新版</title>
+    <title>🧧 春节专属IP及占卜</title>
     <style>
         /* ==================== Reset & Base ==================== */
         * {
@@ -18,6 +18,7 @@
             --dark-red: #8B0000;
             --light-cream: #FFF5E6;
             --orange-red: #FF4500;
+            --purple: #9B59B6;
         }
 
         body {
@@ -26,7 +27,7 @@
             background: linear-gradient(135deg, var(--dark-red) 0%, var(--primary-red) 50%, var(--orange-red) 100%);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
@@ -105,7 +106,7 @@
             background: linear-gradient(145deg, var(--light-cream) 0%, #FFE4CC 100%);
             border-radius: 30px;
             padding: 40px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(139, 0, 0, 0.5), 0 0 100px rgba(255, 215, 0, 0.3);
             text-align: center;
@@ -113,6 +114,8 @@
             z-index: 10;
             border: 4px solid var(--primary-gold);
             overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         /* ==================== Header ==================== */
@@ -167,6 +170,11 @@
             display: block;
         }
 
+        .form-label.required::after {
+            content: ' *';
+            color: var(--primary-red);
+        }
+
         .form-label::before {
             content: '✨';
             margin-right: 8px;
@@ -203,6 +211,63 @@
             color: white;
             border-color: var(--primary-gold);
             box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);
+        }
+
+        /* ==================== Date Input ==================== */
+        .date-input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .date-input {
+            background: linear-gradient(145deg, #FFF 0%, #FFE4CC 100%);
+            border: 2px solid var(--primary-gold);
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            color: var(--dark-red);
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.3);
+        }
+
+        .date-input select {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: var(--dark-red);
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* ==================== Select Dropdown ==================== */
+        .select-input {
+            background: linear-gradient(145deg, #FFF 0%, #FFE4CC 100%);
+            border: 2px solid var(--primary-gold);
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            color: var(--dark-red);
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 200px;
+            cursor: pointer;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.3);
         }
 
         /* ==================== Main Action Button ==================== */
@@ -255,7 +320,6 @@
             height: 200px;
             margin: 0 auto;
             position: relative;
-            cursor: pointer;
             transform-style: preserve-3d;
             animation: float 2s ease-in-out infinite;
         }
@@ -311,7 +375,6 @@
         /* ==================== Result Section ==================== */
         .result-section {
             display: none;
-            margin-top: 40px;
             animation: fadeInUp 1s ease;
         }
 
@@ -489,21 +552,104 @@
             font-style: italic;
         }
 
-        /* ==================== Recommendation Card ==================== */
-        .recommendation-card {
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 20px;
-            text-align: left;
-            border: 3px solid var(--primary-gold);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            position: relative;
+        /* ==================== Fortune Section ==================== */
+        .fortune-section {
+            margin-top: 30px;
+            border-top: 3px solid var(--primary-gold);
+            padding-top: 30px;
         }
 
-        .recommendation-card::before {
-            content: '🤖 AI智能分析';
+        .fortune-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--purple) 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        .fortune-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .fortune-card {
+            background: linear-gradient(145deg, #FFF5E6 0%, #FFE4CC 100%);
+            border: 3px solid;
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .fortune-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fortune-card.health {
+            border-color: #27AE60;
+        }
+
+        .fortune-card.career {
+            border-color: #3498DB;
+        }
+
+        .fortune-card.love {
+            border-color: #E91E63;
+        }
+
+        .fortune-card.wealth {
+            border-color: var(--primary-gold);
+        }
+
+        .fortune-card.overall {
+            border-color: var(--purple);
+            grid-column: 1 / -1;
+        }
+
+        .fortune-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .fortune-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .fortune-card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--dark-red);
+        }
+
+        .fortune-rating {
+            margin-top: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .star {
+            color: #FFD700;
+            font-size: 1.5rem;
+        }
+
+        .star.empty {
+            color: #ccc;
+        }
+
+        .fortune-content {
+            margin-top: 15px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .fortune-badge {
             position: absolute;
             top: -12px;
             right: 20px;
@@ -515,17 +661,46 @@
             font-weight: bold;
         }
 
-        .recommendation-label {
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-            opacity: 0.9;
+        /* ==================== Bazi Info ==================== */
+        .bazi-info {
+            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
         }
 
-        .recommendation-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            white-space: pre-line;
+        .bazi-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark-red);
+            margin-bottom: 15px;
+        }
+
+        .bazi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        .bazi-pillar {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bazi-pillar-name {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .bazi-pillar-content {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-red);
         }
 
         /* ==================== Responsive Design ==================== */
@@ -569,6 +744,18 @@
             .lantern::before {
                 font-size: 18px;
             }
+
+            .date-input-group {
+                flex-direction: column;
+            }
+
+            .fortune-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bazi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* ==================== Utility Classes ==================== */
@@ -595,13 +782,14 @@
 
     <div class="container">
         <header class="header">
-            <h1 class="title">🧧 春节专属IP 🧧</h1>
-            <p class="subtitle">AI智能生成你的新年动物守护神</p>
-            <span class="version-badge">🤖 2025全新版本</span>
+            <h1 class="title">🧧 春节专属IP及占卜 🧧</h1>
+            <p class="subtitle">AI智能生成你的新年守护神并进行命理分析</p>
+            <span class="version-badge">🔮 占卜增强版</span>
         </header>
 
         <main id="mainContent">
             <form id="selectionForm">
+                <!-- 性别选择 -->
                 <section class="form-section">
                     <label class="form-label">选择性别</label>
                     <div class="option-group" data-group="gender">
@@ -610,6 +798,49 @@
                     </div>
                 </section>
 
+                <!-- 出生日期（必填） -->
+                <section class="form-section">
+                    <label class="form-label required">选择出生日期</label>
+                    <div class="date-input-group">
+                        <div class="date-input">
+                            <select id="birthYear" aria-label="出生年份">
+                                <option value="">年份</option>
+                            </select>
+                        </div>
+                        <div class="date-input">
+                            <select id="birthMonth" aria-label="出生月份">
+                                <option value="">月份</option>
+                            </select>
+                        </div>
+                        <div class="date-input">
+                            <select id="birthDay" aria-label="出生日期">
+                                <option value="">日期</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 出生时辰（可选） -->
+                <section class="form-section">
+                    <label class="form-label">选择出生时辰（可选）</label>
+                    <div class="option-group" data-group="birthTime">
+                        <button type="button" class="option-btn" data-value="子时">子时 (23-1点)</button>
+                        <button type="button" class="option-btn" data-value="丑时">丑时 (1-3点)</button>
+                        <button type="button" class="option-btn" data-value="寅时">寅时 (3-5点)</button>
+                        <button type="button" class="option-btn" data-value="卯时">卯时 (5-7点)</button>
+                        <button type="button" class="option-btn" data-value="辰时">辰时 (7-9点)</button>
+                        <button type="button" class="option-btn" data-value="巳时">巳时 (9-11点)</button>
+                        <button type="button" class="option-btn" data-value="午时">午时 (11-13点)</button>
+                        <button type="button" class="option-btn" data-value="未时">未时 (13-15点)</button>
+                        <button type="button" class="option-btn" data-value="申时">申时 (15-17点)</button>
+                        <button type="button" class="option-btn" data-value="酉时">酉时 (17-19点)</button>
+                        <button type="button" class="option-btn" data-value="戌时">戌时 (19-21点)</button>
+                        <button type="button" class="option-btn" data-value="亥时">亥时 (21-23点)</button>
+                        <button type="button" class="option-btn" data-value="未知">❓ 未知</button>
+                    </div>
+                </section>
+
+                <!-- 年龄段选择 -->
                 <section class="form-section">
                     <label class="form-label">选择年龄段</label>
                     <div class="option-group" data-group="age">
@@ -621,6 +852,129 @@
                     </div>
                 </section>
 
+                <!-- 出生地区 -->
+                <section class="form-section">
+                    <label class="form-label required">选择出生地区</label>
+                    <select id="birthLocation" class="select-input" aria-label="出生地区">
+                        <option value="">请选择出生地区</option>
+                        <optgroup label="华北地区">
+                            <option value="北京">北京</option>
+                            <option value="天津">天津</option>
+                            <option value="河北">河北</option>
+                            <option value="山西">山西</option>
+                            <option value="内蒙古">内蒙古</option>
+                        </optgroup>
+                        <optgroup label="东北地区">
+                            <option value="辽宁">辽宁</option>
+                            <option value="吉林">吉林</option>
+                            <option value="黑龙江">黑龙江</option>
+                        </optgroup>
+                        <optgroup label="华东地区">
+                            <option value="上海">上海</option>
+                            <option value="江苏">江苏</option>
+                            <option value="浙江">浙江</option>
+                            <option value="安徽">安徽</option>
+                            <option value="福建">福建</option>
+                            <option value="江西">江西</option>
+                            <option value="山东">山东</option>
+                        </optgroup>
+                        <optgroup label="华中地区">
+                            <option value="河南">河南</option>
+                            <option value="湖北">湖北</option>
+                            <option value="湖南">湖南</option>
+                        </optgroup>
+                        <optgroup label="华南地区">
+                            <option value="广东">广东</option>
+                            <option value="广西">广西</option>
+                            <option value="海南">海南</option>
+                        </optgroup>
+                        <optgroup label="西南地区">
+                            <option value="重庆">重庆</option>
+                            <option value="四川">四川</option>
+                            <option value="贵州">贵州</option>
+                            <option value="云南">云南</option>
+                            <option value="西藏">西藏</option>
+                        </optgroup>
+                        <optgroup label="西北地区">
+                            <option value="陕西">陕西</option>
+                            <option value="甘肃">甘肃</option>
+                            <option value="青海">青海</option>
+                            <option value="宁夏">宁夏</option>
+                            <option value="新疆">新疆</option>
+                        </optgroup>
+                        <optgroup label="港澳台地区">
+                            <option value="香港">香港</option>
+                            <option value="澳门">澳门</option>
+                            <option value="台湾">台湾</option>
+                        </optgroup>
+                        <optgroup label="海外">
+                            <option value="海外其他">海外其他</option>
+                        </optgroup>
+                    </select>
+                </section>
+
+                <!-- 当前所在地区 -->
+                <section class="form-section">
+                    <label class="form-label required">选择目前所在地区</label>
+                    <select id="currentLocation" class="select-input" aria-label="目前所在地区">
+                        <option value="">请选择目前所在地区</option>
+                        <optgroup label="华北地区">
+                            <option value="北京">北京</option>
+                            <option value="天津">天津</option>
+                            <option value="河北">河北</option>
+                            <option value="山西">山西</option>
+                            <option value="内蒙古">内蒙古</option>
+                        </optgroup>
+                        <optgroup label="东北地区">
+                            <option value="辽宁">辽宁</option>
+                            <option value="吉林">吉林</option>
+                            <option value="黑龙江">黑龙江</option>
+                        </optgroup>
+                        <optgroup label="华东地区">
+                            <option value="上海">上海</option>
+                            <option value="江苏">江苏</option>
+                            <option value="浙江">浙江</option>
+                            <option value="安徽">安徽</option>
+                            <option value="福建">福建</option>
+                            <option value="江西">江西</option>
+                            <option value="山东">山东</option>
+                        </optgroup>
+                        <optgroup label="华中地区">
+                            <option value="河南">河南</option>
+                            <option value="湖北">湖北</option>
+                            <option value="湖南">湖南</option>
+                        </optgroup>
+                        <optgroup label="华南地区">
+                            <option value="广东">广东</option>
+                            <option value="广西">广西</option>
+                            <option value="海南">海南</option>
+                        </optgroup>
+                        <optgroup label="西南地区">
+                            <option value="重庆">重庆</option>
+                            <option value="四川">四川</option>
+                            <option value="贵州">贵州</option>
+                            <option value="云南">云南</option>
+                            <option value="西藏">西藏</option>
+                        </optgroup>
+                        <optgroup label="西北地区">
+                            <option value="陕西">陕西</option>
+                            <option value="甘肃">甘肃</option>
+                            <option value="青海">青海</option>
+                            <option value="宁夏">宁夏</option>
+                            <option value="新疆">新疆</option>
+                        </optgroup>
+                        <optgroup label="港澳台地区">
+                            <option value="香港">香港</option>
+                            <option value="澳门">澳门</option>
+                            <option value="台湾">台湾</option>
+                        </optgroup>
+                        <optgroup label="海外">
+                            <option value="海外其他">海外其他</option>
+                        </optgroup>
+                    </select>
+                </section>
+
+                <!-- 偏好动物选择 -->
                 <section class="form-section">
                     <label class="form-label">选择你喜欢的动物类型</label>
                     <div class="option-group" data-group="animal">
@@ -641,7 +995,7 @@
                 </section>
 
                 <button type="button" class="action-button" id="drawButton" disabled>
-                    🎁 抽取新年IP
+                    🎁 开始占卜
                 </button>
             </form>
 
@@ -650,10 +1004,11 @@
                     <div class="blindbox-body">🎁</div>
                     <div class="blindbox-ribbon"></div>
                 </div>
-                <p style="margin-top: 20px;">AI正在为你生成专属IP...</p>
+                <p style="margin-top: 20px;">AI正在为你生成专属IP并进行占卜分析...</p>
             </div>
 
             <div class="result-section" id="resultSection">
+                <!-- IP形象展示 -->
                 <div class="ip-card">
                     <div class="ip-image-container" id="ipImageContainer">
                         <div class="ip-loading">
@@ -665,18 +1020,104 @@
                     <p class="ip-title" id="ipTitle">🧧 新年守护神 🧧</p>
                 </div>
 
+                <!-- 八字信息 -->
+                <div class="bazi-info">
+                    <h3 class="bazi-title">📜 您的八字信息</h3>
+                    <div class="bazi-grid" id="baziGrid">
+                        <!-- 由JS填充 -->
+                    </div>
+                </div>
+
+                <!-- 签名卡片 -->
                 <div class="signature-card">
                     <div class="signature-label">✨ 春节祝福签名 ✨</div>
                     <p class="signature-text" id="signatureText">--</p>
                 </div>
 
-                <div class="recommendation-card">
-                    <div class="recommendation-label">💫 AI推荐理由</div>
-                    <p class="recommendation-text" id="recommendationText">--</p>
+                <!-- 占卜分析部分 -->
+                <div class="fortune-section">
+                    <h2 class="fortune-title">🔮 命理分析报告</h2>
+
+                    <div class="fortune-grid">
+                        <!-- 综合运势 -->
+                        <div class="fortune-card overall">
+                            <span class="fortune-badge">🔮 AI占卜</span>
+                            <div class="fortune-card-header">
+                                <span class="fortune-icon">🌟</span>
+                                <span class="fortune-card-title">综合运势</span>
+                            </div>
+                            <div class="fortune-rating" id="overallRating">
+                                <!-- 由JS填充 -->
+                            </div>
+                            <div class="fortune-content" id="overallFortune">
+                                <!-- 由JS填充 -->
+                            </div>
+                        </div>
+
+                        <!-- 健康运势 -->
+                        <div class="fortune-card health">
+                            <span class="fortune-badge">🔮 AI占卜</span>
+                            <div class="fortune-card-header">
+                                <span class="fortune-icon">💪</span>
+                                <span class="fortune-card-title">健康运势</span>
+                            </div>
+                            <div class="fortune-rating" id="healthRating">
+                                <!-- 由JS填充 -->
+                            </div>
+                            <div class="fortune-content" id="healthFortune">
+                                <!-- 由JS填充 -->
+                            </div>
+                        </div>
+
+                        <!-- 事业运势 -->
+                        <div class="fortune-card career">
+                            <span class="fortune-badge">🔮 AI占卜</span>
+                            <div class="fortune-card-header">
+                                <span class="fortune-icon">💼</span>
+                                <span class="fortune-card-title">事业运势</span>
+                            </div>
+                            <div class="fortune-rating" id="careerRating">
+                                <!-- 由JS填充 -->
+                            </div>
+                            <div class="fortune-content" id="careerFortune">
+                                <!-- 由JS填充 -->
+                            </div>
+                        </div>
+
+                        <!-- 爱情运势 -->
+                        <div class="fortune-card love">
+                            <span class="fortune-badge">🔮 AI占卜</span>
+                            <div class="fortune-card-header">
+                                <span class="fortune-icon">❤️</span>
+                                <span class="fortune-card-title">爱情运势</span>
+                            </div>
+                            <div class="fortune-rating" id="loveRating">
+                                <!-- 由JS填充 -->
+                            </div>
+                            <div class="fortune-content" id="loveFortune">
+                                <!-- 由JS填充 -->
+                            </div>
+                        </div>
+
+                        <!-- 财运 -->
+                        <div class="fortune-card wealth">
+                            <span class="fortune-badge">🔮 AI占卜</span>
+                            <div class="fortune-card-header">
+                                <span class="fortune-icon">💰</span>
+                                <span class="fortune-card-title">财运分析</span>
+                            </div>
+                            <div class="fortune-rating" id="wealthRating">
+                                <!-- 由JS填充 -->
+                            </div>
+                            <div class="fortune-content" id="wealthFortune">
+                                <!-- 由JS填充 -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button type="button" class="action-button" id="resetButton">
-                    🎁 再抽一次
+                    🎁 再占一次
                 </button>
             </div>
         </main>
@@ -688,15 +1129,42 @@
 
             // ==================== Application State ====================
             const AppState = {
-                selection: { gender: null, age: null, animal: null },
+                selection: {
+                    gender: null,
+                    age: null,
+                    animal: null,
+                    birthYear: null,
+                    birthMonth: null,
+                    birthDay: null,
+                    birthTime: '未知',
+                    birthLocation: null,
+                    currentLocation: null
+                },
                 animals: ['龙', '虎', '兔', '蛇', '马', '羊', '猴', '鸡', '狗', '猪', '鼠', '牛'],
 
                 reset() {
-                    this.selection = { gender: null, age: null, animal: null };
+                    this.selection = {
+                        gender: null,
+                        age: null,
+                        animal: null,
+                        birthYear: null,
+                        birthMonth: null,
+                        birthDay: null,
+                        birthTime: '未知',
+                        birthLocation: null,
+                        currentLocation: null
+                    };
                 },
 
                 isComplete() {
-                    return this.selection.gender && this.selection.age && this.selection.animal;
+                    return this.selection.gender &&
+                           this.selection.age &&
+                           this.selection.animal &&
+                           this.selection.birthYear &&
+                           this.selection.birthMonth &&
+                           this.selection.birthDay &&
+                           this.selection.birthLocation &&
+                           this.selection.currentLocation;
                 }
             };
 
@@ -743,138 +1211,202 @@
                 }
             };
 
+            // ==================== Chinese Zodiac & Bazi Calculator ====================
+            const ZodiacCalculator = {
+                animals: ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+                heavenlyStems: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+                earthlyBranches: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'],
+                zodiacAnimals: ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+
+                getZodiac(year) {
+                    const index = (year - 4) % 12;
+                    return this.zodiacAnimals[index >= 0 ? index : index + 12];
+                },
+
+                getBazi(year, month, day, hour) {
+                    // 简化的八字计算（实际应用需要更复杂的历法转换）
+                    const yearStem = this.heavenlyStems[(year - 4) % 10];
+                    const yearBranch = this.earthlyBranches[(year - 4) % 12];
+                    const yearPillar = yearStem + yearBranch;
+
+                    // 月柱（简化）
+                    const monthBranch = this.earthlyBranches[(month - 1) % 12];
+                    const monthPillar = '月' + monthBranch;
+
+                    // 日柱（简化）
+                    const dayStem = this.heavenlyStems[day % 10];
+                    const dayBranch = this.earthlyBranches[day % 12];
+                    const dayPillar = dayStem + dayBranch;
+
+                    // 时柱（简化）
+                    let hourBranch = '未知';
+                    if (hour !== '未知') {
+                        const hourIndex = {
+                            '子时': 0, '丑时': 1, '寅时': 2, '卯时': 3, '辰时': 4, '巳时': 5,
+                            '午时': 6, '未时': 7, '申时': 8, '酉时': 9, '戌时': 10, '亥时': 11
+                        }[hour] || 0;
+                        hourBranch = this.earthlyBranches[hourIndex];
+                    }
+                    const hourPillar = '时' + hourBranch;
+
+                    return {
+                        year: yearPillar,
+                        month: monthPillar,
+                        day: dayPillar,
+                        hour: hourPillar,
+                        zodiac: this.getZodiac(parseInt(year))
+                    };
+                }
+            };
+
+            // ==================== Fortune Telling Engine ====================
+            const FortuneEngine = {
+                healthFortunes: {
+                    high: [
+                        '身体健康，精力充沛！新的一年里，你的免疫力会很强，适合进行高强度的运动锻炼。',
+                        '健康运势极佳！注意保持规律作息，你的身体状态会让同龄人羡慕。',
+                        '今年是你的健康年！无论是身体素质还是精神状态都处于巅峰，可以挑战新的运动项目。'
+                    ],
+                    medium: [
+                        '健康状况良好，但需要适度休息。建议每年进行一次全面体检，防患于未然。',
+                        '整体健康平稳，注意季节变化。换季时节注意保暖，避免感冒等小疾病。',
+                        '健康运势稳定，保持良好生活习惯。注意饮食均衡，多运动，少熬夜。'
+                    ],
+                    low: [
+                        '健康运势需要关注，建议定期体检。注意休息，不要过度劳累，身体是革命的本钱。',
+                        '今年健康方面需要格外注意。避免过度劳累，保持良好作息，多吃健康食品。',
+                        '健康运势较弱，需要提前预防。建议制定健身计划，增强体质，远离疾病。'
+                    ]
+                },
+
+                careerFortunes: {
+                    high: [
+                        '事业运势如日中天！今年会有重大突破，可能是晋升、加薪或转换更好的工作机会。',
+                        '事业大展宏图！你的努力会得到认可，贵人运旺盛，抓住机会就能成功。',
+                        '事业运势极佳！今年适合创业或开拓新项目，你的领导能力会得到充分展现。'
+                    ],
+                    medium: [
+                        '事业运势平稳发展。保持专注和努力，会有稳步提升，不要急于求成。',
+                        '工作状态良好，机会与挑战并存。保持谦虚学习的态度，能力会得到提升。',
+                        '事业运势稳定，适合积累经验。踏实工作，建立良好的人际关系网络。'
+                    ],
+                    low: [
+                        '事业运势需要谨慎，避免冲动决策。今年适合韬光养晦，为明年做准备。',
+                        '职场可能面临挑战，需要耐心应对。保持低调，避免与同事发生冲突。',
+                        '事业运势低迷，建议稳定为主。不要轻易跳槽或创业，积累经验和技能更重要。'
+                    ]
+                },
+
+                loveFortunes: {
+                    high: [
+                        '桃花运旺盛，单身者有望遇到心仪对象！有伴者感情会更加甜蜜。',
+                        '爱情运势极佳！单身者脱单几率高，情侣感情升温，有良缘出现。',
+                        '感情生活丰富多彩！今年适合表达爱意，重要节日会有浪漫惊喜。'
+                    ],
+                    medium: [
+                        '感情运势平稳。单身者保持积极心态，有伴者多沟通增进感情。',
+                        '爱情运势平淡但不失温馨。适合经营现有感情，或扩大社交圈认识新朋友。',
+                        '感情运势平稳，需要主动维护。多表达关心，共同规划未来。'
+                    ],
+                    low: [
+                        '感情运势需要耐心。单身者不要急躁，对的人需要时间等待。',
+                        '感情可能遇到波折，需要包容理解。避免争吵，多换位思考。',
+                        '爱情运势低迷，建议独善其身。专注于自我提升，缘分自然会来。'
+                    ]
+                },
+
+                wealthFortunes: {
+                    high: [
+                        '财运亨通，正财偏财两旺！今年适合理财投资，会有不错的回报。',
+                        '财运极佳，收入会有明显提升！可能有意外之财或投资收益。',
+                        '财富运势旺盛！正财稳定增长，偏财运也不错，可以尝试一些投资。'
+                    ],
+                    medium: [
+                        '财运平稳，收支平衡。建议制定理财计划，合理规划开支和储蓄。',
+                        '财运一般，需要精打细算。避免冲动消费，每月固定储蓄。',
+                        '财运稳定，收入与支出持平。建议开源节流，寻找副业增加收入。'
+                    ],
+                    low: [
+                        '财运需要谨慎，避免投机。今年不适合高风险投资，稳健为主。',
+                        '财运不佳，需要控制开支。避免借贷和担保，量入为出。',
+                        '财富运势低迷，建议保守理财。避免大额支出，专注主业收入。'
+                    ]
+                },
+
+                overallFortunes: {
+                    high: [
+                        '整体运势极佳！这是你大展宏图的一年，各方面都会有显著提升。',
+                        '运势大旺，诸事顺遂！把握机会，大胆前行，成功在等待你。',
+                        '鸿运当头，福气满满！今年是你的幸运年，梦想都有可能实现。'
+                    ],
+                    medium: [
+                        '整体运势平稳向上。保持积极心态，努力会有回报。',
+                        '运势中平，有起有落。保持冷静，抓住机会，规避风险。',
+                        '整体运势平稳发展。稳中求进，适度冒险，会有收获。'
+                    ],
+                    low: [
+                        '整体运势需要谨慎。保持低调，避免冒险，为来年积蓄力量。',
+                        '运势偏弱，需韬光养晦。专注自身，提升能力，等待时机。',
+                        '运势低谷，需要耐心。不要急于求成，保持乐观，困难会过去。'
+                    ]
+                },
+
+                getFortune(category, level) {
+                    const fortunes = this[category + 'Fortunes'];
+                    const levelKey = level >= 4 ? 'high' : level >= 3 ? 'medium' : 'low';
+                    const list = fortunes[levelKey];
+                    return list[Math.floor(Math.random() * list.length)];
+                },
+
+                calculateFortunes(bazi, selection) {
+                    // 基于八字和选择进行随机评分（1-5星）
+                    const random = () => Math.floor(Math.random() * 5) + 1;
+
+                    return {
+                        overall: {
+                            rating: random(),
+                            text: this.getFortune('overall', random())
+                        },
+                        health: {
+                            rating: random(),
+                            text: this.getFortune('health', random())
+                        },
+                        career: {
+                            rating: random(),
+                            text: this.getFortune('career', random())
+                        },
+                        love: {
+                            rating: random(),
+                            text: this.getFortune('love', random())
+                        },
+                        wealth: {
+                            rating: random(),
+                            text: this.getFortune('wealth', random())
+                        }
+                    };
+                }
+            };
+
             // ==================== Data Manager ====================
             const DataManager = {
                 blessings: {
-                    '龙': [
-                        '金龙献瑞，财源滚滚而来！新的一年里，如龙腾飞，事业高升，财运亨通！',
-                        '祥龙昂首，福禄寿喜齐聚！龙年大吉，愿你在新的一年里龙马精神，身体健康，事业兴旺！',
-                        '龙行龘龘，前程万里！愿金龙宝宝守护着你，新的一年里大展宏图，心想事成！',
-                        '金龙贺春，富贵吉祥！祝福你在新的一年里如龙入海，势不可挡，财源广进！'
-                    ],
-                    '虎': [
-                        '虎虎生威，气势如虹！新的一年，愿你如虎添翼，事业腾飞，勇敢前行！',
-                        '福虎迎春，好运连连！虎年大吉，愿瑞虎守护神为你带来满满的好运和福气！',
-                        '龙腾虎跃，大展宏图！祝福你在新的一年里虎虎生威，事业和生活都红红火火！',
-                        '虎年行大运，如虎添翼！愿勇敢的虎之精神助你克服一切困难，勇攀高峰！'
-                    ],
-                    '兔': [
-                        '玉兔迎春，福满人间！愿机灵可爱的兔宝宝为你带来一整年的好运和快乐！',
-                        '前兔无量，大展宏图！祝福你在新的一年里动如脱兔，效率倍增，收获满满！',
-                        '兔年大吉，聪明伶俐！愿温柔的兔守护神助你新的一年里人缘极佳，贵人相助！',
-                        '兔飞猛进，步步高升！愿可爱的玉兔宝宝守护着你，新的一年里甜甜蜜蜜！'
-                    ],
-                    '蛇': [
-                        '金蛇狂舞，财源滚滚！愿智慧灵蛇助你新的一年里洞察先机，把握财富机遇！',
-                        '灵蛇出洞，好运连连！蛇年大吉，愿你如金蛇献瑞，事业财运双丰收！',
-                        '小龙蜕变，展翅高飞！祝福你在新的一年里像小龙化龙一样，实现华丽蜕变！',
-                        '金蛇报喜，福星高照！愿神秘的灵蛇守护神赐予你超凡智慧，心想事成！'
-                    ],
-                    '马': [
-                        '马到成功，一马当先！愿千里马助你新的一年里事业奔腾向前，马不停蹄！',
-                        '龙马精神，事业兴旺！祝福你在新的一年里马不停蹄，财源广进，生活富足！',
-                        '万马奔腾，气势如虹！愿奔腾的骏马为你带来无穷的力量和前进的动力！',
-                        '马年大吉，勇往直前！愿千里马守护神助你新的一年里大展宏图，所向披靡！'
-                    ],
-                    '羊': [
-                        '三阳开泰，财源滚滚！愿吉祥的羊宝宝为你带来新的一年里满满的福气！',
-                        '吉羊如意，福星高照！祝福你在新的一年里喜气洋洋，好运连连，幸福安康！',
-                        '羊年大吉，吉祥如意！愿温顺的羊守护神守护着你，新的一年里平安喜乐！',
-                        '金羊报喜，好运连连！愿三羊开泰的吉祥寓意为你带来事业、财运、健康三丰收！'
-                    ],
-                    '猴': [
-                        '金猴献瑞，财源滚滚！愿机灵的猴宝宝赐予你新的一年里超凡的智慧和洞察力！',
-                        '猴年大吉，聪明伶俐！祝福你在新的一年里像美猴王一样，神通广大，所向披靡！',
-                        '灵猴献宝，福星高照！愿活泼的猴守护神助你新的一年里机智过人，把握机遇！',
-                        '金猴报喜，好运连连！愿聪明伶俐的猴宝宝为你带来新的一年满满的快乐和成功！'
-                    ],
-                    '鸡': [
-                        '金鸡报晓，好运连连！愿勤劳的鸡宝宝助你新的一年里闻鸡起舞，收获满满！',
-                        '鸡年大吉，金鸡独立！祝福你在新的一年里如金鸡高唱，声名远播，事业兴旺！',
-                        '闻鸡起舞，勤劳致富！愿守时的金鸡守护神助你新的一年里勤奋努力，财富不断积累！',
-                        '金鸡献瑞，富贵双全！愿吉祥的金鸡为你带来新的一年里大吉大利的好运！'
-                    ],
-                    '狗': [
-                        '狗年大吉，旺旺来财！愿忠诚的狗宝宝守护着你，新的一年里财运旺旺！',
-                        '福狗迎春，财源滚滚！祝福你在新的一年里汪汪旺运，事业和生活都红红火火！',
-                        '汪汪旺运，好运连连！愿忠犬守护神忠诚守护，助你新的一年里福星高照！',
-                        '金狗报喜，富贵双全！愿旺旺的狗之精神为你带来新的一年满满的财气和福气！'
-                    ],
-                    '猪': [
-                        '金猪拱门，财源滚滚！愿福气的猪宝宝为你带来新的一年里满满的财富和好运！',
-                        '猪年大吉，福气满满！祝福你在新的一年里如金猪报喜，事业财运双丰收！',
-                        '福猪迎春，好运连连！愿可爱的福猪守护神助你新的一年里生活富足，幸福美满！',
-                        '金猪献瑞，福满人间！愿福气满满的猪宝宝为你带来新的一年里团圆和美满！'
-                    ],
-                    '鼠': [
-                        '金鼠献宝，财源滚滚！愿机灵的鼠宝宝赐予你新的一年里精明的理财能力！',
-                        '鼠年大吉，智慧超群！祝福你在新的一年里如灵鼠出洞，抢占先机，拔得头筹！',
-                        '灵鼠迎春，好运连连！愿聪明的鼠守护神助你新的一年里洞察机遇，财富积累！',
-                        '金鼠报喜，福星高照！愿生肖之首的鼠宝宝为你带来新的一年里领头羊的好运！'
-                    ],
-                    '牛': [
-                        '金牛迎春，财源滚滚！愿勤劳的牛宝宝助你新的一年里脚踏实地，勤劳致富！',
-                        '牛年大吉，牛气冲天！祝福你在新的一年里如金牛献瑞，事业兴旺，财源广进！',
-                        '牛气十足，事业兴旺！愿坚韧的牛守护神助你新的一年里克服困难，收获满满！',
-                        '金牛报喜，富贵双全！愿踏实肯干的牛之精神为你带来新的一年里稳稳的幸福！'
-                    ]
+                    '龙': ['金龙献瑞，财源滚滚而来！', '祥龙昂首，福禄寿喜齐聚！', '龙行龘龘，前程万里！', '金龙贺春，富贵吉祥！'],
+                    '虎': ['虎虎生威，气势如虹！', '福虎迎春，好运连连！', '龙腾虎跃，大展宏图！', '虎年行大运，如虎添翼！'],
+                    '兔': ['玉兔迎春，福满人间！', '前兔无量，大展宏图！', '兔年大吉，聪明伶俐！', '兔飞猛进，步步高升！'],
+                    '蛇': ['金蛇狂舞，财源滚滚！', '灵蛇出洞，好运连连！', '小龙蜕变，展翅高飞！', '金蛇报喜，福星高照！'],
+                    '马': ['马到成功，一马当先！', '龙马精神，事业兴旺！', '万马奔腾，气势如虹！', '马年大吉，勇往直前！'],
+                    '羊': ['三阳开泰，财源滚滚！', '吉羊如意，福星高照！', '羊年大吉，吉祥如意！', '金羊报喜，好运连连！'],
+                    '猴': ['金猴献瑞，财源滚滚！', '猴年大吉，聪明伶俐！', '灵猴献宝，福星高照！', '金猴报喜，好运连连！'],
+                    '鸡': ['金鸡报晓，好运连连！', '鸡年大吉，金鸡独立！', '闻鸡起舞，勤劳致富！', '金鸡献瑞，富贵双全！'],
+                    '狗': ['狗年大吉，旺旺来财！', '福狗迎春，财源滚滚！', '汪汪旺运，好运连连！', '金狗报喜，富贵双全！'],
+                    '猪': ['金猪拱门，财源滚滚！', '猪年大吉，福气满满！', '福猪迎春，好运连连！', '金猪献瑞，福满人间！'],
+                    '鼠': ['金鼠献宝，财源滚滚！', '鼠年大吉，智慧超群！', '灵鼠迎春，好运连连！', '金鼠报喜，福星高照！'],
+                    '牛': ['金牛迎春，财源滚滚！', '牛年大吉，牛气冲天！', '牛气十足，事业兴旺！', '金牛报喜，富贵双全！']
                 },
 
                 getBlessing(animal) {
                     const list = this.blessings[animal] || this.blessings['龙'];
                     return list[Math.floor(Math.random() * list.length)];
-                },
-
-                getRecommendation(animal) {
-                    const age = AppState.selection.age;
-                    const gender = AppState.selection.gender;
-
-                    const templates = {
-                        '龙': `龙作为中华民族的图腾，象征着至高无上的尊贵、无穷的力量和腾飞的事业。
-
-🎊 **文化寓意**：龙是十二生肖中唯一的神话生物，代表着皇权、尊贵和吉祥。在中华文化中，龙是天子的象征，寓意着非凡的成就和崇高的地位。
-
-💫 **新年祝福**：选择龙作为你的新年守护神，预示着${age === '儿童' || age === '少年' ? '小小年纪就拥有远大志向' : '事业腾飞、前程似锦'}。金龙宝宝将为你在新的一年里带来：
-
-✨ **事业运**：龙腾虎跃，步步高升
-💰 **财运**：财源滚滚，富贵有余
-🏥 **健康运**：龙马精神，身体康健
-❤️ **感情运**：龙凤呈祥，美满幸福
-
-愿你在${new Date().getFullYear() + 1}年里，如祥龙昂首，福禄双收！`,
-
-                        '虎': `虎被誉为百兽之王，象征着无与伦比的勇气、威严和力量。
-
-🎊 **文化寓意**：虎代表着勇猛、刚毅和不屈的精神。在中国文化中，虎是辟邪的象征，寓意着平安吉祥。
-
-💫 **新年祝福**：${gender === '女' ? '选择虎作为守护神，展现了你勇敢坚毅的性格' : '虎虎生威，气势如虹'}。瑞虎宝宝将为你在新的一年里带来：
-
-✨ **事业运**：如虎添翼，大展宏图
-💰 **财运**：虎跃龙腾，财源广进
-🏥 **健康运**：生龙活虎，精力充沛
-❤️ **感情运**：虎虎生威，魅力四射
-
-愿你在新的一年里，虎年行大运，勇往直前！`,
-
-                        '兔': `兔子象征着机敏、聪明和可爱的温顺品质。
-
-🎊 **文化寓意**：兔代表着敏捷、机智和温和。在中国神话中，玉兔陪伴在月宫，象征着纯洁和美好。
-
-💫 **新年祝福**：${age === '儿童' || age === '少年' ? '可爱的兔宝宝最适合你' : '温柔善良的兔守护神'}。玉兔宝宝将为你在新的一年里带来：
-
-✨ **事业运**：动如脱兔，效率倍增
-💰 **财运**：兔飞猛进，财富增长
-🏥 **健康运**：活泼可爱，青春永驻
-❤️ **感情运**：温柔可人，人缘极佳
-
-愿你在新的一年里，兔年大吉，前兔无量！`
-                    };
-
-                    return templates[animal] || `🎊 **文化寓意**：${animal}在中华文化中寓意着吉祥、美好和祝福。
-
-💫 **新年祝福**：根据你的选择（${gender}性，${age}），${animal}守护神将为你在新的一年里带来专属的祝福和守护。
-
-✨ **整体运势**：愿${animal}年为你带来满满的财运、健康和幸福，心想事成，万事如意！`;
                 },
 
                 getIPName(animal, age) {
@@ -891,26 +1423,15 @@
             // ==================== Image Generator ====================
             const ImageGenerator = {
                 styleMap: {
-                    '龙': 'majestic golden dragon',
-                    '虎': 'cute tiger',
-                    '兔': 'adorable rabbit',
-                    '蛇': 'elegant snake',
-                    '马': 'strong horse',
-                    '羊': 'fluffy sheep',
-                    '猴': 'playful monkey',
-                    '鸡': 'colorful rooster',
-                    '狗': 'loyal dog',
-                    '猪': 'cute pig',
-                    '鼠': 'clever mouse',
-                    '牛': 'strong ox'
+                    '龙': 'majestic golden dragon', '虎': 'cute tiger', '兔': 'adorable rabbit',
+                    '蛇': 'elegant snake', '马': 'strong horse', '羊': 'fluffy sheep',
+                    '猴': 'playful monkey', '鸡': 'colorful rooster', '狗': 'loyal dog',
+                    '猪': 'cute pig', '鼠': 'clever mouse', '牛': 'strong ox'
                 },
 
                 ageStyle: {
-                    '儿童': 'chibi style, kawaii',
-                    '少年': 'anime style, young',
-                    '青年': 'modern style, cool',
-                    '中年': 'elegant style',
-                    '老年': 'wise style'
+                    '儿童': 'chibi style, kawaii', '少年': 'anime style, young',
+                    '青年': 'modern style, cool', '中年': 'elegant style', '老年': 'wise style'
                 },
 
                 emojiMap: {
@@ -951,7 +1472,7 @@
                     ipName: document.getElementById('ipName'),
                     ipTitle: document.getElementById('ipTitle'),
                     signatureText: document.getElementById('signatureText'),
-                    recommendationText: document.getElementById('recommendationText')
+                    baziGrid: document.getElementById('baziGrid')
                 },
 
                 showBlindbox() {
@@ -982,12 +1503,49 @@
                     this.elements.drawButton.disabled = !AppState.isComplete();
                 },
 
+                updateBazi(bazi) {
+                    const pillars = [
+                        { name: '年柱', content: bazi.year },
+                        { name: '月柱', content: bazi.month },
+                        { name: '日柱', content: bazi.day },
+                        { name: '时柱', content: bazi.hour }
+                    ];
+
+                    this.elements.baziGrid.innerHTML = pillars.map(p => `
+                        <div class="bazi-pillar">
+                            <div class="bazi-pillar-name">${p.name}</div>
+                            <div class="bazi-pillar-content">${p.content}</div>
+                        </div>
+                    `).join('');
+                },
+
+                updateFortunes(fortunes) {
+                    const updateCard = (id, fortune) => {
+                        const card = document.getElementById(id);
+                        if (!card) return;
+
+                        const rating = fortune.rating;
+                        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+                        document.getElementById(id + 'Rating').innerHTML = stars.split('').map(s =>
+                            `<span class="star ${s === '☆' ? 'empty' : ''}">${s}</span>`
+                        ).join('');
+
+                        document.getElementById(id + 'Fortune').textContent = fortune.text;
+                    };
+
+                    updateCard('overall', fortunes.overall);
+                    updateCard('health', fortunes.health);
+                    updateCard('career', fortunes.career);
+                    updateCard('love', fortunes.love);
+                    updateCard('wealth', fortunes.wealth);
+                },
+
                 updateResult(animal) {
                     const age = AppState.selection.age;
                     this.elements.ipName.textContent = DataManager.getIPName(animal, age);
                     this.elements.ipTitle.textContent = `🧧 ${animal}年专属守护神 🧧`;
                     this.elements.signatureText.textContent = DataManager.getBlessing(animal);
-                    this.elements.recommendationText.textContent = DataManager.getRecommendation(animal);
                 }
             };
 
@@ -1024,12 +1582,10 @@
                 animate() {
                     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-                    // Add new particles occasionally
                     if (this.particles.length < 100) {
                         this.particles.push(this.createParticle());
                     }
 
-                    // Update and draw particles
                     this.particles = this.particles.filter(p => {
                         p.y -= p.speed;
                         p.alpha -= p.decay;
@@ -1063,16 +1619,71 @@
                 }
             };
 
+            // ==================== Date Selector Initialization ====================
+            function initDateSelectors() {
+                const yearSelect = document.getElementById('birthYear');
+                const monthSelect = document.getElementById('birthMonth');
+                const daySelect = document.getElementById('birthDay');
+
+                // 年份：1950-2025
+                for (let y = 2025; y >= 1950; y--) {
+                    const option = document.createElement('option');
+                    option.value = y;
+                    option.textContent = y + '年';
+                    yearSelect.appendChild(option);
+                }
+
+                // 月份
+                for (let m = 1; m <= 12; m++) {
+                    const option = document.createElement('option');
+                    option.value = m;
+                    option.textContent = m + '月';
+                    monthSelect.appendChild(option);
+                }
+
+                // 日期
+                for (let d = 1; d <= 31; d++) {
+                    const option = document.createElement('option');
+                    option.value = d;
+                    option.textContent = d + '日';
+                    daySelect.appendChild(option);
+                }
+
+                // 监听日期选择
+                [yearSelect, monthSelect, daySelect].forEach(select => {
+                    select.addEventListener('change', () => {
+                        AppState.selection.birthYear = yearSelect.value;
+                        AppState.selection.birthMonth = monthSelect.value;
+                        AppState.selection.birthDay = daySelect.value;
+                        UI.updateDrawButton();
+                    });
+                });
+            }
+
+            // ==================== Location Selectors Initialization ====================
+            function initLocationSelectors() {
+                const birthLocation = document.getElementById('birthLocation');
+                const currentLocation = document.getElementById('currentLocation');
+
+                birthLocation.addEventListener('change', () => {
+                    AppState.selection.birthLocation = birthLocation.value;
+                    UI.updateDrawButton();
+                });
+
+                currentLocation.addEventListener('change', () => {
+                    AppState.selection.currentLocation = currentLocation.value;
+                    UI.updateDrawButton();
+                });
+            }
+
             // ==================== Event Handlers ====================
             function handleOptionClick(button) {
                 const group = button.parentElement;
                 const groupType = group.dataset.group;
                 const value = button.dataset.value;
 
-                // Update selection
                 AppState.selection[groupType] = value;
 
-                // Update UI
                 group.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
                 button.classList.add('selected');
 
@@ -1094,7 +1705,23 @@
                             ? DataManager.getRandomAnimal()
                             : AppState.selection.animal;
 
+                        // 计算八字
+                        const bazi = ZodiacCalculator.getBazi(
+                            AppState.selection.birthYear,
+                            AppState.selection.birthMonth,
+                            AppState.selection.birthDay,
+                            AppState.selection.birthTime
+                        );
+
+                        // 计算运势
+                        const fortunes = FortuneEngine.calculateFortunes(bazi, AppState.selection);
+
+                        // 生成图片
                         await ImageGenerator.generate(animal, AppState.selection.age);
+
+                        // 更新UI
+                        UI.updateBazi(bazi);
+                        UI.updateFortunes(fortunes);
                         UI.updateResult(animal);
                         UI.showResult();
                         AudioManager.play('reveal');
@@ -1104,27 +1731,41 @@
 
             function handleReset() {
                 AppState.reset();
+
+                // 重置日期选择
+                document.getElementById('birthYear').value = '';
+                document.getElementById('birthMonth').value = '';
+                document.getElementById('birthDay').value = '';
+                document.getElementById('birthLocation').value = '';
+                document.getElementById('currentLocation').value = '';
+
                 UI.reset();
             }
 
             // ==================== Initialization ====================
             function init() {
-                // Bind option buttons
+                // 初始化日期选择器
+                initDateSelectors();
+
+                // 初始化地区选择器
+                initLocationSelectors();
+
+                // 绑定选项按钮
                 document.querySelectorAll('.option-btn').forEach(button => {
                     button.addEventListener('click', () => handleOptionClick(button));
                 });
 
-                // Bind action buttons
+                // 绑定操作按钮
                 UI.elements.drawButton.addEventListener('click', handleDraw);
                 UI.elements.resetButton.addEventListener('click', handleReset);
 
-                // Initialize fireworks
+                // 初始化烟花
                 Fireworks.init();
 
-                console.log('🧧 春节专属IP 2025新版已准备就绪！');
+                console.log('🧧 春节专属IP及占卜已准备就绪！');
             }
 
-            // Start application when DOM is ready
+            // 启动应用
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', init);
             } else {
