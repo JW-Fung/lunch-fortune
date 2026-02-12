@@ -620,11 +620,11 @@
             <div class="form-section">
                 <label class="form-label">选择年龄段</label>
                 <div class="option-group" id="ageOptions">
-                    <button class="option-btn" data-group="age" data-value="儿童" onclick="selectOption(this)">👶 儿童 (0-12岁)</button>
-                    <button class="option-btn" data-group="age" data-value="少年" onclick="selectOption(this)">🧒 少年 (13-17岁)</button>
-                    <button class="option-btn" data-group="age" data-value="青年" onclick="selectOption(this)">🧑 青年 (18-35岁)</button>
-                    <button class="option-btn" data-group="age" data-value="中年" onclick="selectOption(this)">👨 中年 (36-55岁)</button>
-                    <button class="option-btn" data-group="age" data-value="老年" onclick="selectOption(this)">👴 老年 (55岁+)</button>
+                    <button class="option-btn" data-group="age" data-value="儿童">👶 儿童 (0-12岁)</button>
+                    <button class="option-btn" data-group="age" data-value="少年">🧒 少年 (13-17岁)</button>
+                    <button class="option-btn" data-group="age" data-value="青年">🧑 青年 (18-35岁)</button>
+                    <button class="option-btn" data-group="age" data-value="中年">👨 中年 (36-55岁)</button>
+                    <button class="option-btn" data-group="age" data-value="老年">👴 老年 (55岁+)</button>
                 </div>
             </div>
 
@@ -632,19 +632,19 @@
             <div class="form-section">
                 <label class="form-label">选择你喜欢的动物类型</label>
                 <div class="option-group" id="animalOptions">
-                    <button class="option-btn" data-group="animal" data-value="龙" onclick="selectOption(this)">🐉 龙</button>
-                    <button class="option-btn" data-group="animal" data-value="虎" onclick="selectOption(this)">🐯 虎</button>
-                    <button class="option-btn" data-group="animal" data-value="兔" onclick="selectOption(this)">🐰 兔</button>
-                    <button class="option-btn" data-group="animal" data-value="蛇" onclick="selectOption(this)">🐍 蛇</button>
-                    <button class="option-btn" data-group="animal" data-value="马" onclick="selectOption(this)">🐴 马</button>
-                    <button class="option-btn" data-group="animal" data-value="羊" onclick="selectOption(this)">🐑 羊</button>
-                    <button class="option-btn" data-group="animal" data-value="猴" onclick="selectOption(this)">🐵 猴</button>
-                    <button class="option-btn" data-group="animal" data-value="鸡" onclick="selectOption(this)">🐔 鸡</button>
-                    <button class="option-btn" data-group="animal" data-value="狗" onclick="selectOption(this)">🐕 狗</button>
-                    <button class="option-btn" data-group="animal" data-value="猪" onclick="selectOption(this)">🐷 猪</button>
-                    <button class="option-btn" data-group="animal" data-value="鼠" onclick="selectOption(this)">🐭 鼠</button>
-                    <button class="option-btn" data-group="animal" data-value="牛" onclick="selectOption(this)">🐮 牛</button>
-                    <button class="option-btn" data-group="animal" data-value="随机" onclick="selectOption(this)">🎲 随机惊喜</button>
+                    <button class="option-btn" data-group="animal" data-value="龙">🐉 龙</button>
+                    <button class="option-btn" data-group="animal" data-value="虎">🐯 虎</button>
+                    <button class="option-btn" data-group="animal" data-value="兔">🐰 兔</button>
+                    <button class="option-btn" data-group="animal" data-value="蛇">🐍 蛇</button>
+                    <button class="option-btn" data-group="animal" data-value="马">🐴 马</button>
+                    <button class="option-btn" data-group="animal" data-value="羊">🐑 羊</button>
+                    <button class="option-btn" data-group="animal" data-value="猴">🐵 猴</button>
+                    <button class="option-btn" data-group="animal" data-value="鸡">🐔 鸡</button>
+                    <button class="option-btn" data-group="animal" data-value="狗">🐕 狗</button>
+                    <button class="option-btn" data-group="animal" data-value="猪">🐷 猪</button>
+                    <button class="option-btn" data-group="animal" data-value="鼠">🐭 鼠</button>
+                    <button class="option-btn" data-group="animal" data-value="牛">🐮 牛</button>
+                    <button class="option-btn" data-group="animal" data-value="随机">🎲 随机惊喜</button>
                 </div>
             </div>
 
@@ -690,7 +690,7 @@
                 <div class="recommendation-text" id="recommendationText">正在智能分析...</div>
             </div>
 
-            <button class="blindbox-button" onclick="resetForm()" style="margin-top: 30px;">
+            <button class="blindbox-button" id="resetButton" style="margin-top: 30px;">
                 🎁 再抽一次
             </button>
         </div>
@@ -823,7 +823,17 @@
                 });
             }
 
-            console.log('Bound ' + (allButtons.length + 1) + ' button events');
+            // 绑定"再抽一次"按钮
+            const resetButton = document.getElementById('resetButton');
+            if (resetButton) {
+                resetButton.addEventListener('click', function(e) {
+                    console.log('Reset button clicked');
+                    e.preventDefault();
+                    resetForm();
+                });
+            }
+
+            console.log('Bound ' + (allButtons.length + 2) + ' button events');
         });
 
         // AI图片生成 - 使用Pollinations AI (免费, 无需API key)
