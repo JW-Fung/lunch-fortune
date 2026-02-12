@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"d:\\\\project\" status)",
+      "Bash(git -C \"d:\\\\project\" add:*)",
+      "Bash(git -C \"d:\\\\project\" commit -m \"refactor: 完全重写页面 - 2025新版\n\n- 采用模块化架构（AppState/AudioManager/DataManager等）\n- 使用CSS变量统一颜色管理\n- 使用IIFE避免全局污染\n- 改进代码组织和注释\n- 优化事件处理机制\")",
+      "Bash(git -C \"d:\\\\project\" push)",
+      "Bash(git -C \"d:\\\\project\" commit -m \"feat: 添加占卜功能 - 完整命理分析\n\n- 项目更名为''春节专属IP及占卜''\n- 新增出生日期选择（年/月/日必填）\n- 新增出生时辰选择（可选未知）\n- 新增出生地区选择\n- 新增目前所在地区选择\n- 实现八字计算（年月日时柱）\n- 实现AI算命引擎（健康/事业/爱情/财运/综合运势）\n- 添加运势星级评分系统（1-5星）\n- 添加完整命理分析报告卡片\n- 优化UI布局以容纳新功能\n- 修复字符编码问题\")",
+      "Bash(git -C \"d:\\\\project\" pull --rebase)",
+      "Bash(git -C \"d:\\\\project\" rebase:*)",
+      "Bash(git -C \"d:\\\\project\" push --force)",
+      "Bash(git -C \"d:\\\\project\" add -A)",
+      "Bash(git -C \"d:\\\\project\" commit:*)"
+    ]
+  }
+}
