@@ -746,26 +746,47 @@
 
         // 选择选项 - 使用data属性获取值
         function selectOption(button) {
-            playSound('select');
+            console.log('selectOption called', button);
+
+            // 播放音效
+            try {
+                playSound('select');
+            } catch (e) {
+                console.log('Sound error:', e);
+            }
+
             const type = button.dataset.group;
             const value = button.dataset.value;
+
+            console.log('Type:', type, 'Value:', value);
 
             // 更新userSelection对象
             if (type === 'gender') {
                 userSelection.gender = value;
+                console.log('Gender set to:', value);
             } else if (type === 'age') {
                 userSelection.age = value;
+                console.log('Age set to:', value);
             } else if (type === 'animal') {
                 userSelection.animal = value;
+                console.log('Animal set to:', value);
             }
 
-            // 更新UI
-            const group = button.parentElement;
+            // 更新UI - 清除同组所有按钮的selected类
+            const groupId = button.parentElement.id;
+            console.log('Group ID:', groupId);
+
+            const group = document.getElementById(groupId);
             const buttons = group.getElementsByClassName('option-btn');
+            console.log('Buttons found:', buttons.length);
+
             for (let btn of buttons) {
                 btn.classList.remove('selected');
             }
+
+            // 添加selected到当前点击的按钮
             button.classList.add('selected');
+            console.log('Added selected class');
 
             checkFormComplete();
         }
