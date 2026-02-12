@@ -649,7 +649,7 @@
             </div>
 
             <!-- 抽盲盒按钮 -->
-            <button class="blindbox-button" id="blindboxButton" onclick="drawBlindBox()" disabled>
+            <button class="blindbox-button" id="blindboxButton">
                 🎁 抽取新年IP
             </button>
         </div>
@@ -813,7 +813,17 @@
                 });
             });
 
-            console.log('Bound ' + allButtons.length + ' button events');
+            // 绑定盲盒按钮
+            const blindboxButton = document.getElementById('blindboxButton');
+            if (blindboxButton) {
+                blindboxButton.addEventListener('click', function(e) {
+                    console.log('Blindbox button clicked');
+                    e.preventDefault();
+                    drawBlindBox();
+                });
+            }
+
+            console.log('Bound ' + (allButtons.length + 1) + ' button events');
         });
 
         // AI图片生成 - 使用Pollinations AI (免费, 无需API key)
