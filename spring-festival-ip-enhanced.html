@@ -611,8 +611,8 @@
             <div class="form-section">
                 <label class="form-label">选择性别</label>
                 <div class="option-group" id="genderOptions">
-                    <button class="option-btn" data-group="gender" data-value="男" onclick="selectOption(this)">👨 男生</button>
-                    <button class="option-btn" data-group="gender" data-value="女" onclick="selectOption(this)">👩 女生</button>
+                    <button class="option-btn" data-group="gender" data-value="男">👨 男生</button>
+                    <button class="option-btn" data-group="gender" data-value="女">👩 女生</button>
                 </div>
             </div>
 
@@ -798,6 +798,23 @@
                 button.disabled = false;
             }
         }
+
+        // DOM加载完成后绑定事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, binding events...');
+
+            // 绑定所有选项按钮的点击事件
+            const allButtons = document.querySelectorAll('.option-btn');
+            allButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log('Button clicked via event listener:', this);
+                    selectOption(this);
+                    e.preventDefault();
+                });
+            });
+
+            console.log('Bound ' + allButtons.length + ' button events');
+        });
 
         // AI图片生成 - 使用Pollinations AI (免费, 无需API key)
         async function generateAIImage(animal, gender, age) {
